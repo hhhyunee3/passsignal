@@ -1,0 +1,22 @@
+# 합격시그널(passsignal) 워커 배포 설정
+# 대시보드의 Worker 이름과 아래 name 이 반드시 일치해야 빌드가 성공합니다.
+
+name = "passsignal"
+main = "passsignal_worker.js"
+compatibility_date = "2026-06-01"
+
+# ─────────────────────────────────────────────
+# (선택) 상담 알림 메일 — Cloudflare Email Routing 설정 후 주석 해제
+# Email Routing에서 발신/수신 주소를 먼저 인증해야 실제 발송됩니다.
+# [[send_email]]
+# name = "NOTIFY"
+
+# (선택) 화면 표기/연동값 중 "민감하지 않은" 값만 여기에 둡니다.
+# [vars]
+# BRAND_NAME   = "합격시그널"
+# NOTIFY_FROM  = "noreply@hapgyeoksignal.com"
+
+# 민감한 값(받는 메일주소·시트 웹훅 URL)은 repo에 넣지 말고
+# 대시보드 Settings → Variables and Secrets, 또는 아래 명령으로 등록하세요:
+#   npx wrangler secret put NOTIFY_TO
+#   npx wrangler secret put SHEET_WEBHOOK_URL
