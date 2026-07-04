@@ -731,7 +731,7 @@ function programCard(slug) {
 <span class="pcat">${esc(p.category)}</span>
 <h4>${esc(p.name)}</h4>
 <p>${esc(p.short)}</p>
-<span class="pmeta"><span class="price">${esc(p.price)}<em>${esc(p.unit)}</em></span><span class="go">자세히 보기 →</span></span>
+<span class="pmeta"><span class="price">${esc(p.unit)}</span><span class="go">자세히 보기 →</span></span>
 </a>`;
 }
 
@@ -868,7 +868,7 @@ function renderDetail(p) {
 <h1>${esc(p.name)}</h1>
 <p class="dintro">${esc(p.intro)}</p>
 <div class="dbadges">
-<span class="badge gold">${esc(p.price)} · ${esc(p.unit)}</span>
+<span class="badge gold">${esc(p.unit)}</span>
 <span class="badge">${esc(p.format)}</span>
 </div>
 <div class="dcta"><a href="/#contact" class="btn btn-gold">이 프로그램 상담 신청 →</a><a href="/#programs" class="btn btn-ghost">전체 프로그램</a></div>
@@ -880,9 +880,9 @@ function renderDetail(p) {
 <aside class="side">
 <div class="pricecard reveal">
 <div class="pl">PROGRAM</div>
-<div class="pp">${esc(p.price)}</div>
+<div class="pp" style="font-size:1.3rem">1:1 맞춤 컨설팅</div>
 <div class="pu">${esc(p.unit)}</div>
-<div class="pf">${esc(p.format)}</div>
+<div class="pf">${esc(p.format)}<br>· 비용은 상담 시 안내드립니다</div>
 <a href="/#contact" class="btn btn-gold">상담 신청하기</a>
 </div>
 ${targetList ? `<div class="sidebox reveal d1"><h5>추천 대상</h5>${targetLead}<ul class="tlist">${targetList}</ul></div>` : ""}
@@ -910,7 +910,7 @@ ${steps}
 </div>
 </section>`;
 
-  return layout(`${esc(p.name)} · ${SITE.brand}`, `${esc(p.short)} ${esc(p.price)} ${esc(p.unit)}. ${SITE.tagline} ${SITE.brand}.`, body);
+  return layout(`${esc(p.name)} · ${SITE.brand}`, `${esc(p.short)} ${SITE.tagline} ${SITE.brand}.`, body);
 }
 
 function notFound() {
