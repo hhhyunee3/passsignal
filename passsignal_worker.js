@@ -521,6 +521,20 @@ form.inq .btn-gold{width:100%;justify-content:center;margin-top:6px;padding:15px
 .form-msg.err{color:#E9A0A0}
 .form-msg.ok{color:var(--signal-bright)}
 .consent{font-size:.76rem;color:var(--muted-light);margin-top:12px;text-align:center;line-height:1.6}
+.fgroup{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);margin:24px 0 14px;padding-top:20px;border-top:1px solid var(--line-light)}
+.fgroup.first{border-top:none;padding-top:2px;margin-top:2px}
+.radios{display:flex;gap:20px;flex-wrap:wrap;padding-top:6px}
+.radios.col{flex-direction:column;gap:11px}
+.radio{display:flex;align-items:center;gap:8px;font-size:.92rem;color:var(--paper);cursor:pointer;font-weight:400;line-height:1.4}
+.radio input{width:auto;accent-color:var(--signal);cursor:pointer;flex-shrink:0}
+.consent-check{display:flex;align-items:flex-start;gap:10px;margin:22px 0 2px;font-size:.88rem;color:var(--paper);cursor:pointer;line-height:1.5}
+.consent-check input{width:auto;margin-top:2px;accent-color:var(--signal);cursor:pointer;flex-shrink:0}
+.privacy{margin:8px 0 4px}
+.privacy summary{cursor:pointer;color:var(--signal);font-size:.8rem;list-style:none}
+.privacy summary::-webkit-details-marker{display:none}
+.privacy summary::before{content:"＋ ";font-weight:700}
+.privacy[open] summary::before{content:"－ "}
+.privacy .pbody{margin-top:10px;font-size:.78rem;color:var(--muted-light);line-height:1.75;background:rgba(251,250,247,.04);border:1px solid var(--line-light);padding:14px 16px;border-radius:2px;white-space:pre-line}
 
 .dhero{background:var(--ink);color:var(--paper);padding:138px 0 70px;position:relative;overflow:hidden}
 .dhero::after{content:"";position:absolute;inset:0;background:radial-gradient(110% 80% at 88% 12%,rgba(199,154,75,.10),transparent 55%);pointer-events:none}
@@ -644,7 +658,7 @@ function footer() {
 <div class="foot-col"><h6>바로가기</h6><a href="/#programs">전체 프로그램</a><a href="/#process">프로세스</a><a href="/#contact">상담 신청</a></div>
 </div></div>
 <div class="foot-bottom">
-<p class="legal">상호 ${SITE.brand} · ${SITE.addr} · 대표전화 ${SITE.tel}<br>© ${new Date().getFullYear()} ${SITE.brandEn}. All rights reserved.</p>
+<p class="legal">상호 ${SITE.brand} · ${SITE.addr}<br>© ${new Date().getFullYear()} ${SITE.brandEn}. All rights reserved.</p>
 <p>${SITE.tagline}</p>
 </div></div></footer>`;
 }
@@ -666,9 +680,22 @@ var f=document.getElementById('inquiryForm');
 if(f){f.addEventListener('submit',function(e){e.preventDefault();
 var m=document.getElementById('formMsg');
 var g=function(id){return document.getElementById(id);};
-var name=g('iq_name').value.trim(),phone=g('iq_phone').value.trim();
-if(!name||!phone){m.textContent='성함과 연락처를 입력해 주세요.';m.className='form-msg err';return;}
-var payload={name:name,phone:phone,grade:g('iq_grade').value,program:g('iq_program').value,mode:g('iq_mode').value,message:g('iq_message').value.trim()};
+var gv=function(n){var el=f.querySelector('input[name="'+n+'"]:checked');return el?el.value:'';};
+var err=function(t){m.textContent=t;m.className='form-msg err';};
+var payload={
+studentName:g('iq_student').value.trim(),gender:gv('gender'),
+grade:g('iq_grade').value,gpa:g('iq_gpa').value,region:g('iq_region').value,school:g('iq_school').value.trim(),
+parentName:g('iq_parent').value.trim(),parentPhone:g('iq_phone').value.trim(),
+program:g('iq_program').value,target:g('iq_target').value.trim(),
+inquiry1:g('iq_inquiry').value.trim(),status:gv('status'),consent:g('iq_consent').checked};
+if(!payload.studentName){err('학생 이름을 입력해 주세요.');return;}
+if(!payload.gender){err('학생 성별을 선택해 주세요.');return;}
+if(!payload.grade||!payload.gpa||!payload.region||!payload.school){err('학년·내신·지역·학교명을 모두 입력해 주세요.');return;}
+if(!payload.parentName||!payload.parentPhone){err('학부모 성함과 연락처를 입력해 주세요.');return;}
+if(!payload.target){err('목표 대학 및 학과를 입력해 주세요.');return;}
+if(!payload.inquiry1){err('문의 내용을 남겨주세요.');return;}
+if(!payload.status){err('상담 진행 상태를 선택해 주세요.');return;}
+if(!payload.consent){err('개인정보 수집·이용 동의가 필요합니다.');return;}
 m.textContent='신청을 접수하고 있습니다...';m.className='form-msg';
 fetch('/api/inquiry',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)})
 .then(function(r){return r.json();})
@@ -764,30 +791,52 @@ ${cats}
 <div class="reveal">
 <span class="eyebrow">상담 신청</span>
 <h2>합격의 신호는<br>지금 <span class="gold">상담</span>에서 시작됩니다</h2>
-<p class="lead">간단한 정보만 남겨주시면, 전담 컨설턴트가 영업일 기준 24시간 내에 연락드립니다. 첫 진단 상담으로 현재 위치와 합격 가능성을 확인해 보세요.</p>
+<p class="lead">우측 신청서를 남겨주시면, 전담 컨설턴트가 확인 후 영업일 기준 24시간 내에 직접 연락드립니다. 첫 진단 상담으로 현재 위치와 합격 가능성을 확인해 보세요.</p>
 <div class="channels">
-<div class="channel"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 6 8-6" stroke="currentColor" stroke-width="1.6"/></svg><div><b>이메일 상담</b><span>${SITE.email}</span></div></div>
-<div class="channel"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.6"/><path d="M10 18h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><div><b>전화 상담</b><span>${SITE.tel} · 평일 10:00–21:00</span></div></div>
-<div class="channel"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7-.2.7-.8 2.6-.9 3-.1.5.2.5.4.4.2-.1 2.6-1.8 3.7-2.5.7.1 1.4.2 2.1.2 5.5 0 10-3.6 10-8S17.5 3 12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><div><b>카카오톡 상담</b><span>채널 검색 · ${SITE.kakao}</span></div></div>
 <div class="channel"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg><div><b>오시는 길</b><span>${SITE.addr} · 대치 센터</span></div></div>
+<div class="channel"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>상담 시간</b><span>평일 10:00 – 21:00 · 신청서 접수 후 연락</span></div></div>
 </div>
 </div>
 <form class="inq reveal d2" id="inquiryForm" novalidate>
 <h3>1:1 상담 신청</h3>
-<p class="fdesc">남겨주시면 빠르게 연락드리겠습니다.</p>
+<p class="fdesc">아래 내용을 남겨주시면 담당 컨설턴트가 확인 후 연락드립니다. <span style="color:var(--signal-bright)">*</span> 표시는 필수입니다.</p>
+
+<div class="fgroup first">학생 정보</div>
 <div class="frow">
-<div class="field"><label for="iq_name">성함</label><input id="iq_name" type="text" placeholder="학생 또는 학부모 성함" required></div>
-<div class="field"><label for="iq_phone">연락처</label><input id="iq_phone" type="tel" placeholder="010-0000-0000" required></div>
+<div class="field"><label for="iq_student">회원(학생) 이름 *</label><input id="iq_student" type="text" placeholder="학생 성함" required></div>
+<div class="field"><label>성별 *</label><div class="radios" id="iq_gender"><label class="radio"><input type="radio" name="gender" value="남">남</label><label class="radio"><input type="radio" name="gender" value="여">여</label></div></div>
 </div>
 <div class="frow">
-<div class="field"><label for="iq_grade">학년</label><select id="iq_grade"><option value="">선택</option><option>중등(고입)</option><option>예비 고1</option><option>고1</option><option>고2</option><option>고3</option><option>N수 · 재수</option><option>검정고시</option></select></div>
-<div class="field"><label for="iq_mode">상담 방식</label><select id="iq_mode"><option value="">선택</option><option>대치 센터 방문</option><option>온라인 상담</option></select></div>
+<div class="field"><label for="iq_grade">학년 *</label><select id="iq_grade" required><option value="">선택</option><option>중2</option><option>중3</option><option>고1</option><option>고2</option><option>고3</option><option>N수</option></select></div>
+<div class="field"><label for="iq_gpa">내신 성적대 *</label><select id="iq_gpa" required><option value="">선택</option><option>1등급대 (1.x)</option><option>2등급대 (2.x)</option><option>3등급대 (3.x)</option><option>4등급대 (4.x)</option><option>5등급대 (5.x)</option><option>6등급대 (6.x)</option><option>7등급 이하</option></select></div>
 </div>
+<div class="frow">
+<div class="field"><label for="iq_region">지역 *</label><select id="iq_region" required><option value="">선택</option><option>서울</option><option>경기도</option><option>인천</option><option>강원도</option><option>충청북도</option><option>충청남도</option><option>경상북도</option><option>경상남도</option><option>전라북도</option><option>전라남도</option><option>제주도</option><option>해외</option></select></div>
+<div class="field"><label for="iq_school">학교명 *</label><input id="iq_school" type="text" placeholder="재학(예정) 학교명" required></div>
+</div>
+
+<div class="fgroup">학부모 정보</div>
+<div class="frow">
+<div class="field"><label for="iq_parent">학부모 이름 *</label><input id="iq_parent" type="text" placeholder="학부모 성함" required></div>
+<div class="field"><label for="iq_phone">학부모 연락처 *</label><input id="iq_phone" type="tel" placeholder="010-0000-0000" required></div>
+</div>
+
+<div class="fgroup">상담 정보</div>
 <div class="field"><label for="iq_program">관심 프로그램</label><select id="iq_program"><option value="">선택</option>${programOptions}</select></div>
-<div class="field"><label for="iq_message">상담 내용 (선택)</label><textarea id="iq_message" rows="3" placeholder="현재 고민이나 목표 대학을 적어주시면 상담에 도움이 됩니다."></textarea></div>
+<div class="field"><label for="iq_target">목표 대학 및 학과 *</label><input id="iq_target" type="text" placeholder="예: OO대학교 OO학과 (자세할수록 상담에 도움이 됩니다)" required></div>
+<div class="field"><label for="iq_inquiry">문의 내용 *</label><textarea id="iq_inquiry" rows="3" placeholder="학생·학부모가 함께 상의한 내용, 궁금한 점을 자세히 남겨주세요." required></textarea></div>
+<div class="field"><label>상담 진행 상태 *</label><div class="radios col" id="iq_status">
+<label class="radio"><input type="radio" name="status" value="상품안내 완료 · 스케줄 조정만 필요">상품 안내가 다 되어, 스케줄 조정만 하면 됩니다</label>
+<label class="radio"><input type="radio" name="status" value="추가 상품안내 · 상담 필요">좀 더 자세한 상품 안내·상담이 필요합니다</label>
+</div></div>
+
+<label class="consent-check"><input type="checkbox" id="iq_consent"><span>개인정보 수집·이용에 동의합니다 *</span></label>
+<details class="privacy"><summary>수집·이용 안내 보기</summary><div class="pbody">· 수집 항목: 회원 유형·학년·성별, 학교명·지역, 내신 성적대, 학부모 성함·연락처, 목표 대학/학과, 상담 내용
+· 수집 목적: 상담 신청 접수 및 안내(마케팅 포함)
+· 보유·이용: 신청일로부터 30일 후 파기하며, 제3자에게 제공하지 않습니다.</div></details>
+
 <button type="submit" class="btn btn-gold">상담 신청하기 →</button>
 <p class="form-msg" id="formMsg" role="status"></p>
-<p class="consent">신청 시 개인정보 수집·이용(상담 목적)에 동의하는 것으로 간주됩니다.</p>
 </form>
 </div>
 </section>`;
@@ -885,20 +934,23 @@ async function handleInquiry(request, env) {
   let data;
   try { data = await request.json(); } catch { return json({ ok: false, error: "요청 형식이 올바르지 않습니다." }, 400); }
 
-  const name = (data.name || "").toString().trim();
-  const phone = (data.phone || "").toString().trim();
-  if (!name || !phone) return json({ ok: false, error: "성함과 연락처를 입력해 주세요." }, 400);
+  const S = (v) => (v == null ? "" : String(v)).trim();
+  const studentName = S(data.studentName);
+  const parentPhone = S(data.parentPhone);
+  if (!studentName || !parentPhone) return json({ ok: false, error: "학생 이름과 학부모 연락처는 필수입니다." }, 400);
+  if (!data.consent) return json({ ok: false, error: "개인정보 수집·이용 동의가 필요합니다." }, 400);
 
   const atDisplay = new Date().toLocaleString("ko-KR", {
     timeZone: "Asia/Seoul", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: true,
   });
   const record = {
     site: (env && env.BRAND_NAME) || SITE.brand,
-    name, phone,
-    grade: (data.grade || "").toString().trim(),
-    program: (data.program || "").toString().trim(),
-    mode: (data.mode || "").toString().trim(),
-    message: (data.message || "").toString().trim(),
+    studentName, gender: S(data.gender),
+    grade: S(data.grade), gpa: S(data.gpa), region: S(data.region), school: S(data.school),
+    parentName: S(data.parentName), parentPhone,
+    program: S(data.program), target: S(data.target),
+    inquiry1: S(data.inquiry1), status: S(data.status),
+    consent: !!data.consent,
     at: new Date().toISOString(), atDisplay,
   };
 
@@ -907,7 +959,7 @@ async function handleInquiry(request, env) {
     if (env && env.NOTIFY && env.NOTIFY_TO) {
       const { EmailMessage } = await import("cloudflare:email");
       const from = env.NOTIFY_FROM || ("noreply@" + new URL(SITE.url).host);
-      const subject = "[" + record.site + "] 상담 신청 - " + name + (record.program ? " (" + record.program + ")" : "");
+      const subject = "[" + record.site + "] 상담 신청 - " + studentName + (record.program ? " (" + record.program + ")" : "");
       const raw = buildMime({ from, fromName: record.site, to: env.NOTIFY_TO, subject, html: renderEmailHtml(record) });
       await env.NOTIFY.send(new EmailMessage(from, env.NOTIFY_TO, raw));
     }
@@ -939,15 +991,16 @@ function buildMime({ from, fromName, to, subject, html }) {
 }
 
 function renderEmailHtml(r) {
-  const tel = String(r.phone).replace(/[^0-9+]/g, "");
+  const tel = String(r.parentPhone).replace(/[^0-9+]/g, "");
   const gold = "#C79A4B", ink = "#0B1622", line = "#E6E2DA", soft = "#F4EFE3";
   const cell = "padding:13px 0;font-size:13px;color:#8A8578;width:96px;vertical-align:top;";
   const val = "padding:13px 0;font-size:15px;font-weight:700;color:" + ink + ";border-bottom:1px solid " + line + ";";
   const row = (k, v) => '<tr><td style="' + cell + '">' + k + '</td><td style="' + val + '">' + escapeHtml(v || "-") + '</td></tr>';
-  let rows = row("성함", r.name);
-  rows += '<tr><td style="' + cell + '">연락처</td><td style="padding:13px 0;border-bottom:1px solid ' + line + ';"><a href="tel:' + tel + '" style="color:' + gold + ';font-size:17px;font-weight:800;text-decoration:none;">' + escapeHtml(r.phone) + '</a></td></tr>';
-  rows += row("학년", r.grade) + row("관심 프로그램", r.program) + row("상담 방식", r.mode);
-  rows += '<tr><td style="' + cell + '">상담 내용</td><td style="padding:13px 0;font-size:14px;line-height:1.6;color:' + ink + ';">' + (r.message ? escapeHtml(r.message).replace(/\n/g, "<br>") : "-") + '</td></tr>';
+  let rows = row("학생 이름", r.studentName) + row("성별", r.gender) + row("학년", r.grade) + row("내신 성적대", r.gpa) + row("지역", r.region) + row("학교명", r.school);
+  rows += row("학부모 이름", r.parentName);
+  rows += '<tr><td style="' + cell + '">학부모 연락처</td><td style="padding:13px 0;border-bottom:1px solid ' + line + ';"><a href="tel:' + tel + '" style="color:' + gold + ';font-size:17px;font-weight:800;text-decoration:none;">' + escapeHtml(r.parentPhone) + '</a></td></tr>';
+  rows += row("관심 프로그램", r.program) + row("목표 대학·학과", r.target) + row("진행 상태", r.status);
+  rows += '<tr><td style="' + cell + '">문의 내용</td><td style="padding:13px 0;font-size:14px;line-height:1.6;color:' + ink + ';">' + (r.inquiry1 ? escapeHtml(r.inquiry1).replace(/\n/g, "<br>") : "-") + '</td></tr>';
   return '<!doctype html><html><body style="margin:0;padding:24px 12px;background:#F3F2EE;font-family:-apple-system,BlinkMacSystemFont,Apple SD Gothic Neo,Malgun Gothic,sans-serif;">' +
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 10px 30px rgba(11,22,34,.10);">' +
     '<tr><td style="background:' + ink + ';padding:28px 32px;"><div style="color:' + gold + ';font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">' + escapeHtml(r.site) + ' · 새 상담 신청</div>' +

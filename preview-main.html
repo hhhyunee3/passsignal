@@ -1,0 +1,465 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>합격시그널 · 대치동 입시컨설팅</title>
+<meta name="description" content="대치동 입시컨설팅 합격시그널. 생기부·수시·정시·면접 컨설팅으로 학생 한 명의 데이터를 끝까지 읽어 가장 확실한 합격 전략을 설계합니다.">
+<link rel="canonical" href="https://passsignal.com/">
+<meta property="og:type" content="website"><meta property="og:title" content="합격시그널 · 대치동 입시컨설팅">
+<meta property="og:description" content="대치동 입시컨설팅 합격시그널. 생기부·수시·정시·면접 컨설팅으로 학생 한 명의 데이터를 끝까지 읽어 가장 확실한 합격 전략을 설계합니다."><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1622'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23C79A4B'/%3E%3Cpath d='M16 9a7 7 0 0 1 7 7' stroke='%23C79A4B' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B1622;--navy:#13243A;--navy-2:#1B3150;
+  --paper:#FBFAF7;--paper-cool:#EEF1F5;
+  --signal:#C79A4B;--signal-bright:#E4B85F;
+  --line:rgba(11,22,34,.12);--line-light:rgba(251,250,247,.16);
+  --muted:#5A6573;--muted-light:rgba(251,250,247,.66);
+  --serif:'Hahmlet',serif;--sans:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--signal);color:var(--ink)}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--signal);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--signal)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.18;letter-spacing:-.01em}
+
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .35s,box-shadow .35s,border-color .35s;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(251,250,247,.92);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+.brand{display:flex;align-items:center;gap:11px;color:var(--paper)}
+header.scrolled .brand{color:var(--ink)}
+.brand b{font-family:var(--serif);font-size:1.18rem;font-weight:600;letter-spacing:-.01em;line-height:1.05}
+.brand small{display:block;font-size:.6rem;font-weight:600;letter-spacing:.26em;color:var(--signal);text-transform:uppercase;margin-top:2px}
+.navlinks{display:flex;align-items:center;gap:32px}
+.navlinks a{font-size:.92rem;font-weight:500;color:var(--muted-light);transition:color .25s}
+header.scrolled .navlinks a{color:var(--muted)}
+.navlinks a:hover{color:var(--signal)}
+header.scrolled .navlinks a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--sans);font-size:.92rem;font-weight:600;padding:13px 24px;border-radius:2px;cursor:pointer;border:none;transition:transform .2s,background .25s,color .25s,box-shadow .25s;white-space:nowrap}
+.btn-gold{background:var(--signal);color:var(--ink)}
+.btn-gold:hover{background:var(--signal-bright);transform:translateY(-2px);box-shadow:0 10px 26px rgba(199,154,75,.34)}
+.btn-ghost{background:transparent;color:var(--paper);border:1px solid var(--line-light)}
+.btn-ghost:hover{border-color:var(--signal);color:var(--signal)}
+.btn-dark{background:var(--ink);color:var(--paper)}
+.btn-dark:hover{background:var(--navy);transform:translateY(-2px)}
+.btn-line{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-line:hover{border-color:var(--signal);color:var(--signal)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger span{width:24px;height:2px;background:var(--paper);transition:.3s}
+header.scrolled .hamburger span{background:var(--ink)}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+.hero{position:relative;background:var(--ink);color:var(--paper);min-height:100vh;display:flex;align-items:center;padding:120px 0 70px;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 78% 18%,rgba(199,154,75,.10),transparent 55%)}
+.signal-bg{position:absolute;top:50%;right:-160px;transform:translateY(-50%);width:760px;height:760px;pointer-events:none}
+.signal-bg .ring{fill:none;stroke:var(--signal);stroke-width:1;transform-origin:center;opacity:0}
+.pulse .ring{animation:pulse 5.4s ease-out infinite}
+.pulse .ring:nth-child(2){animation-delay:1.35s}
+.pulse .ring:nth-child(3){animation-delay:2.7s}
+.pulse .ring:nth-child(4){animation-delay:4.05s}
+@keyframes pulse{0%{opacity:0;transform:scale(.18)}16%{opacity:.5}100%{opacity:0;transform:scale(1)}}
+.sweep{transform-origin:380px 380px;animation:sweep 9s linear infinite}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.hero-grid{position:relative;z-index:2;width:100%}
+.hero-copy{max-width:660px}
+.hero h1{font-size:clamp(2.4rem,5.4vw,4.05rem);margin:26px 0 24px}
+.hero h1 .gold{color:var(--signal)}
+.hero p.lead{font-size:1.08rem;color:var(--muted-light);max-width:540px;line-height:1.78}
+.hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.hero-trust{display:flex;gap:38px;margin-top:54px;padding-top:32px;border-top:1px solid var(--line-light);flex-wrap:wrap}
+.hero-trust .num{font-family:var(--serif);font-size:1.85rem;font-weight:600;color:var(--paper);display:block}
+.hero-trust .num em{font-style:normal;color:var(--signal);font-size:1.15rem}
+.hero-trust .lab{font-size:.82rem;color:var(--muted-light);margin-top:2px}
+
+section{padding:104px 0}
+.sec-head{max-width:720px;margin-bottom:52px}
+.sec-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem);margin:20px 0 18px}
+.sec-head p{color:var(--muted);font-size:1.04rem;line-height:1.8}
+
+.programs{background:var(--paper-cool)}
+.catblock{margin-bottom:54px}
+.catblock:last-child{margin-bottom:0}
+.cathead{display:flex;align-items:baseline;gap:16px;padding-bottom:18px;margin-bottom:24px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.cathead h3{font-size:1.5rem}
+.cathead span{color:var(--muted);font-size:.95rem}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.pcard{background:var(--paper);border:1px solid var(--line);padding:30px 28px 26px;display:flex;flex-direction:column;min-height:228px;transition:transform .35s,box-shadow .35s,border-color .35s;position:relative}
+.pcard:hover{transform:translateY(-5px);box-shadow:0 24px 46px rgba(11,22,34,.10);border-color:transparent}
+.pcard .pcat{font-size:.7rem;font-weight:700;letter-spacing:.14em;color:var(--signal);text-transform:uppercase}
+.pcard h4{font-family:var(--serif);font-size:1.32rem;font-weight:600;margin:12px 0 10px;line-height:1.3}
+.pcard p{font-size:.94rem;color:var(--muted);line-height:1.62;margin-bottom:18px}
+.pcard .pmeta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--line)}
+.pcard .price{font-family:var(--serif);font-size:1.04rem;color:var(--ink)}
+.pcard .price em{font-style:normal;color:var(--muted);font-size:.8rem;font-family:var(--sans);margin-left:4px}
+.pcard .go{font-size:.86rem;font-weight:600;color:var(--signal);display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+.pcard:hover .go{gap:11px}
+
+.process{background:var(--ink);color:var(--paper)}
+.process .sec-head h2{color:var(--paper)}
+.process .sec-head p{color:var(--muted-light)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:14px}
+.step{padding:34px 26px 30px 0;border-top:2px solid var(--line-light);position:relative}
+.step::before{content:"";position:absolute;top:-6px;left:0;width:10px;height:10px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 5px rgba(199,154,75,.18)}
+.step .sn{font-family:var(--serif);font-size:.92rem;color:var(--signal);font-weight:600;letter-spacing:.08em}
+.step h4{font-family:var(--sans);font-size:1.2rem;font-weight:600;margin:13px 0 11px}
+.step p{font-size:.92rem;color:var(--muted-light);line-height:1.7}
+
+.contact{background:var(--paper)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.contact h2{font-size:clamp(2rem,4vw,2.9rem);margin:18px 0 22px;line-height:1.2}
+.contact h2 .gold{color:var(--signal)}
+.contact .lead{color:var(--muted);font-size:1.04rem;line-height:1.85;max-width:440px}
+.channels{margin-top:34px}
+.channel{display:flex;align-items:center;gap:16px;padding:17px 0;border-top:1px solid var(--line)}
+.channel:last-child{border-bottom:1px solid var(--line)}
+.channel .ic{color:var(--signal);flex-shrink:0}
+.channel b{display:block;font-size:1.02rem;font-weight:600}
+.channel span{font-size:.86rem;color:var(--muted)}
+form.inq{background:var(--ink);padding:40px 38px 36px;color:var(--paper)}
+form.inq h3{font-size:1.4rem;color:var(--paper);margin-bottom:6px}
+form.inq .fdesc{color:var(--muted-light);font-size:.9rem;margin-bottom:24px}
+.field{margin-bottom:17px}
+.field label{display:block;font-size:.8rem;font-weight:600;letter-spacing:.03em;margin-bottom:8px;color:var(--muted-light)}
+.field input,.field select,.field textarea{width:100%;background:rgba(251,250,247,.05);border:1px solid var(--line-light);color:var(--paper);padding:13px 15px;font-family:var(--sans);font-size:.95rem;border-radius:2px;transition:border-color .25s,background .25s}
+.field input::placeholder,.field textarea::placeholder{color:rgba(251,250,247,.4)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--signal);background:rgba(199,154,75,.06)}
+.field select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C79A4B' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:38px}
+.field select option{background:var(--ink);color:var(--paper)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form.inq .btn-gold{width:100%;justify-content:center;margin-top:6px;padding:15px}
+.form-msg{margin-top:14px;font-size:.9rem;text-align:center;min-height:20px;color:var(--signal-bright)}
+.form-msg.err{color:#E9A0A0}
+.form-msg.ok{color:var(--signal-bright)}
+.consent{font-size:.76rem;color:var(--muted-light);margin-top:12px;text-align:center;line-height:1.6}
+.fgroup{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);margin:24px 0 14px;padding-top:20px;border-top:1px solid var(--line-light)}
+.fgroup.first{border-top:none;padding-top:2px;margin-top:2px}
+.radios{display:flex;gap:20px;flex-wrap:wrap;padding-top:6px}
+.radios.col{flex-direction:column;gap:11px}
+.radio{display:flex;align-items:center;gap:8px;font-size:.92rem;color:var(--paper);cursor:pointer;font-weight:400;line-height:1.4}
+.radio input{width:auto;accent-color:var(--signal);cursor:pointer;flex-shrink:0}
+.consent-check{display:flex;align-items:flex-start;gap:10px;margin:22px 0 2px;font-size:.88rem;color:var(--paper);cursor:pointer;line-height:1.5}
+.consent-check input{width:auto;margin-top:2px;accent-color:var(--signal);cursor:pointer;flex-shrink:0}
+.privacy{margin:8px 0 4px}
+.privacy summary{cursor:pointer;color:var(--signal);font-size:.8rem;list-style:none}
+.privacy summary::-webkit-details-marker{display:none}
+.privacy summary::before{content:"＋ ";font-weight:700}
+.privacy[open] summary::before{content:"－ "}
+.privacy .pbody{margin-top:10px;font-size:.78rem;color:var(--muted-light);line-height:1.75;background:rgba(251,250,247,.04);border:1px solid var(--line-light);padding:14px 16px;border-radius:2px;white-space:pre-line}
+
+.dhero{background:var(--ink);color:var(--paper);padding:138px 0 70px;position:relative;overflow:hidden}
+.dhero::after{content:"";position:absolute;inset:0;background:radial-gradient(110% 80% at 88% 12%,rgba(199,154,75,.10),transparent 55%);pointer-events:none}
+.crumb{font-size:.84rem;color:var(--muted-light);margin-bottom:22px;position:relative;z-index:2}
+.crumb a:hover{color:var(--signal)}
+.dhero h1{font-size:clamp(2rem,4.4vw,3.2rem);margin:14px 0 20px;position:relative;z-index:2;max-width:780px}
+.dhero .dintro{color:var(--muted-light);font-size:1.05rem;line-height:1.85;max-width:680px;position:relative;z-index:2}
+.dbadges{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 0;position:relative;z-index:2}
+.badge{font-size:.82rem;color:var(--paper);border:1px solid var(--line-light);padding:8px 14px;border-radius:2px;display:inline-flex;align-items:center;gap:7px}
+.badge.gold{border-color:var(--signal);color:var(--signal-bright)}
+.dcta{display:flex;gap:13px;margin-top:32px;flex-wrap:wrap;position:relative;z-index:2}
+
+.dbody{padding:88px 0}
+.dbody-grid{display:grid;grid-template-columns:330px 1fr;gap:56px;align-items:start}
+.side{position:sticky;top:104px}
+.pricecard{background:var(--ink);color:var(--paper);padding:26px 26px 24px;margin-bottom:24px}
+.pricecard .pl{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--signal)}
+.pricecard .pp{font-family:var(--serif);font-size:1.7rem;margin:8px 0 2px}
+.pricecard .pu{font-size:.86rem;color:var(--muted-light)}
+.pricecard .pf{font-size:.82rem;color:var(--muted-light);margin-top:14px;padding-top:14px;border-top:1px solid var(--line-light);line-height:1.6}
+.pricecard .btn{width:100%;justify-content:center;margin-top:18px}
+.sidebox{border:1px solid var(--line);padding:24px 24px 22px;margin-bottom:18px}
+.sidebox h5{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);margin-bottom:14px}
+.sidebox .lead{font-size:.9rem;color:var(--ink);font-weight:600;margin-bottom:14px;line-height:1.55}
+.tlist{list-style:none}
+.tlist li{font-size:.92rem;color:var(--muted);line-height:1.62;padding:9px 0 9px 22px;position:relative;border-top:1px solid var(--line)}
+.tlist li:first-child{border-top:none}
+.tlist li::before{content:"";position:absolute;left:0;top:16px;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--signal)}
+.tip{background:var(--paper-cool);border-left:3px solid var(--signal);padding:18px 20px}
+.tip h5{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);margin-bottom:8px}
+.tip p{font-size:.88rem;color:var(--muted);line-height:1.66}
+
+.curhead{margin-bottom:8px}
+.curhead .eyebrow{margin-bottom:14px}
+.curhead h2{font-size:1.9rem;margin-bottom:14px}
+.curhead p{color:var(--muted);font-size:1rem;line-height:1.8;max-width:640px;margin-bottom:36px}
+.cstep{display:grid;grid-template-columns:64px 1fr;gap:8px;padding:30px 0;border-top:1px solid var(--line)}
+.cstep:first-of-type{border-top:2px solid var(--ink)}
+.cstep .cn{font-family:var(--serif);font-size:1.5rem;color:var(--signal);font-weight:600;line-height:1.2}
+.cstep h4{font-family:var(--sans);font-size:1.18rem;font-weight:600;margin-bottom:14px}
+.cpoints{list-style:none}
+.cpoints li{font-size:.96rem;color:var(--muted);line-height:1.7;padding:7px 0 7px 20px;position:relative}
+.cpoints li::before{content:"";position:absolute;left:0;top:14px;width:7px;height:1.5px;background:var(--signal)}
+
+.related{background:var(--paper-cool);padding:88px 0}
+.related .sec-head{margin-bottom:36px}
+.dcontact{background:var(--ink);color:var(--paper);padding:96px 0;text-align:center}
+.dcontact h2{font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--paper);margin-bottom:16px}
+.dcontact h2 .gold{color:var(--signal)}
+.dcontact p{color:var(--muted-light);font-size:1.02rem;max-width:520px;margin:0 auto 30px;line-height:1.8}
+
+footer{background:var(--ink);color:var(--muted-light);padding:62px 0 38px;border-top:1px solid var(--line-light)}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;padding-bottom:38px;border-bottom:1px solid var(--line-light)}
+.foot-brand b{font-family:var(--serif);color:var(--paper);font-size:1.3rem;display:block;margin-bottom:10px}
+.foot-brand p{font-size:.9rem;max-width:360px;line-height:1.7}
+.foot-cols{display:flex;gap:60px}
+.foot-col h6{color:var(--paper);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:15px;font-weight:600}
+.foot-col a{display:block;font-size:.9rem;margin-bottom:10px;transition:color .2s}
+.foot-col a:hover{color:var(--signal)}
+.foot-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:.8rem}
+.foot-bottom .legal{opacity:.7;line-height:1.7}
+
+@media(max-width:980px){
+  .contact-grid{grid-template-columns:1fr;gap:42px}
+  .steps{grid-template-columns:1fr 1fr;gap:6px 24px}
+  .dbody-grid{grid-template-columns:1fr;gap:36px}
+  .side{position:static}
+  .foot-top{flex-direction:column}
+}
+@media(max-width:640px){
+  .wrap{padding:0 20px}
+  section{padding:74px 0}
+  .navlinks{display:none;position:absolute;top:78px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 20px 20px}
+  .navlinks.open{display:flex}
+  .navlinks a{color:var(--ink);padding:14px 0;border-bottom:1px solid var(--line);width:100%}
+  .navlinks .btn{margin-top:14px;width:100%;justify-content:center}
+  .hamburger{display:flex}
+  .steps{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  form.inq{padding:32px 22px}
+  .cstep{grid-template-columns:1fr;gap:10px}
+  .dbody{padding:64px 0}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head><body>
+<header id="site-header"><div class="wrap nav">
+<a href="/" class="brand" aria-label="합격시그널 홈"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="3.4" fill="#C79A4B"/><path d="M17 8.5a8.5 8.5 0 0 1 8.5 8.5" stroke="#C79A4B" stroke-width="1.6" stroke-linecap="round"/><path d="M17 4a13 13 0 0 1 13 13" stroke="#C79A4B" stroke-width="1.4" stroke-linecap="round" opacity=".55"/></svg><span style="line-height:1"><b>합격시그널</b><small>HAPGYEOK SIGNAL</small></span></a>
+<nav class="navlinks" id="navlinks">
+<a href="/#programs">프로그램</a>
+<a href="/#process">프로세스</a>
+<a href="/#contact">상담 안내</a>
+<a href="/#contact" class="btn btn-gold">상담 신청</a>
+</nav>
+<button class="hamburger" id="burger" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
+</div></header>
+
+<section class="hero">
+<svg class="signal-bg pulse" viewBox="0 0 760 760" aria-hidden="true">
+<g class="sweep" opacity=".18"><line x1="380" y1="380" x2="380" y2="40" stroke="#C79A4B" stroke-width="1"/></g>
+<circle class="ring" cx="380" cy="380" r="360"/><circle class="ring" cx="380" cy="380" r="360"/><circle class="ring" cx="380" cy="380" r="360"/><circle class="ring" cx="380" cy="380" r="360"/>
+<circle cx="380" cy="380" r="5" fill="#C79A4B"/>
+<circle cx="380" cy="380" r="60" fill="none" stroke="#C79A4B" stroke-width="1" opacity=".35"/>
+<circle cx="380" cy="380" r="140" fill="none" stroke="#C79A4B" stroke-width="1" opacity=".22"/>
+<circle cx="380" cy="380" r="240" fill="none" stroke="#C79A4B" stroke-width="1" opacity=".12"/>
+</svg>
+<div class="wrap hero-grid"><div class="hero-copy">
+<span class="eyebrow reveal">대치동 입시컨설팅</span>
+<h1 class="reveal d1">입시의 소음 속에서,<br><span class="gold">합격의 신호</span>를 읽다</h1>
+<p class="lead reveal d2">수많은 전형과 변수 앞에서 길을 잃지 않도록. 생기부 설계부터 수시·정시·면접까지, 학생 한 명의 데이터를 끝까지 읽어 가장 확실한 합격 경로를 설계합니다.</p>
+<div class="hero-cta reveal d3"><a href="#programs" class="btn btn-gold">프로그램 보기 →</a><a href="#contact" class="btn btn-ghost">1:1 상담 신청</a></div>
+<div class="hero-trust reveal d4">
+<div><span class="num">8<em>개 프로그램</em></span><span class="lab">진단 · 수시 · 정시 · 면접</span></div>
+<div><span class="num">10<em>년+</em></span><span class="lab">선별된 전문가 컨설팅</span></div>
+<div><span class="num">1:1</span><span class="lab">학생별 전담 맞춤 설계</span></div>
+</div>
+</div></div>
+</section>
+
+<section class="programs" id="programs">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow">프로그램</span><h2>필요한 단계에 맞춰<br>정확한 컨설팅을 선택하세요</h2><p>모든 프로그램은 대치 센터 방문 또는 온라인 상담으로 진행되며, 학생의 학년·목표에 따라 단일 프로그램 또는 통합 로드맵으로 설계할 수 있습니다.</p></div>
+
+<div class="catblock">
+<div class="cathead reveal"><h3>종합 진단</h3><span>어디서부터 시작할지 막막하다면, 큰 그림부터.</span></div>
+<div class="pgrid"><a class="pcard reveal" href="/program/premium">
+<span class="pcat">종합 진단</span>
+<h4>프리미엄 입시솔루션 컨설팅</h4>
+<p>원데이 프리미엄 진단으로 입시의 큰 그림을 설계합니다.</p>
+<span class="pmeta"><span class="price">600,000원<em>1회 120분</em></span><span class="go">자세히 보기 →</span></span>
+</a></div>
+</div>
+<div class="catblock">
+<div class="cathead reveal"><h3>대입 전략</h3><span>수시·정시·검정고시, 가장 유리한 길을 설계합니다.</span></div>
+<div class="pgrid"><a class="pcard reveal" href="/program/susi">
+<span class="pcat">대입 전략</span>
+<h4>합격 수시 전략 컨설팅</h4>
+<p>내신·생기부를 입체 분석해 최적의 수시 6장을 설계합니다.</p>
+<span class="pmeta"><span class="price">600,000원<em>1회 120분</em></span><span class="go">자세히 보기 →</span></span>
+</a><a class="pcard reveal" href="/program/jeongsi">
+<span class="pcat">대입 전략</span>
+<h4>합격 정시 전략 컨설팅</h4>
+<p>1점도 낭비 없이, 가·나·다군 최적 조합을 완성합니다.</p>
+<span class="pmeta"><span class="price">600,000원<em>1회 120분</em></span><span class="go">자세히 보기 →</span></span>
+</a><a class="pcard reveal" href="/program/gumjeong">
+<span class="pcat">대입 전략</span>
+<h4>검정고시 전략 컨설팅</h4>
+<p>검정고시 환산 분석부터 대체 서류까지 완벽 가이드합니다.</p>
+<span class="pmeta"><span class="price">600,000원<em>1회 120분</em></span><span class="go">자세히 보기 →</span></span>
+</a></div>
+</div>
+<div class="catblock">
+<div class="cathead reveal"><h3>학생부 · 자소서</h3><span>서류의 완성도가 합격의 격차를 만듭니다.</span></div>
+<div class="pgrid"><a class="pcard reveal" href="/program/setuk">
+<span class="pcat">학생부 · 자소서</span>
+<h4>합격 생기부를 위한 세특 컨설팅</h4>
+<p>목표 전공에 맞춘 세특으로 학생부 완성도를 극대화합니다.</p>
+<span class="pmeta"><span class="price">과목당 600,000원<em>다회차 · 총 120분 분할진행</em></span><span class="go">자세히 보기 →</span></span>
+</a><a class="pcard reveal" href="/program/jaso">
+<span class="pcat">학생부 · 자소서</span>
+<h4>고입 자소서 프로그램</h4>
+<p>특목·자사고 인재상에 부합하는 차별화된 자소서를 완성합니다.</p>
+<span class="pmeta"><span class="price">600,000원<em>1회 120분</em></span><span class="go">자세히 보기 →</span></span>
+</a></div>
+</div>
+<div class="catblock">
+<div class="cathead reveal"><h3>면접</h3><span>준비한 만큼, 당일에 100% 보여주도록.</span></div>
+<div class="pgrid"><a class="pcard reveal" href="/program/interview-content">
+<span class="pcat">면접</span>
+<h4>합격 면접 프로그램 〈내용설정〉</h4>
+<p>서류 기반 예상 질문과 ‘킬러 답변’의 뼈대를 설계합니다.</p>
+<span class="pmeta"><span class="price">600,000원<em>1회 120분</em></span><span class="go">자세히 보기 →</span></span>
+</a><a class="pcard reveal" href="/program/interview-real">
+<span class="pcat">면접</span>
+<h4>합격 면접 프로그램 〈실전면접〉</h4>
+<p>실전 압박 모의면접으로 면접 당일 퍼포먼스를 완성합니다.</p>
+<span class="pmeta"><span class="price">600,000원<em>1회 120분</em></span><span class="go">자세히 보기 →</span></span>
+</a></div>
+</div>
+</div>
+</section>
+
+<section class="process" id="process">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow">컨설팅 프로세스</span><h2>진단에서 합격까지,<br>네 단계로 동행합니다</h2><p>한 번의 상담으로 끝나지 않습니다. 합격이라는 결과가 나올 때까지 단계별로 함께합니다.</p></div>
+<div class="steps">
+<div class="step reveal d1"><div class="sn">STEP 01</div><h4>진단</h4><p>성적·생기부·목표 대학을 종합 분석해 현재 위치와 격차를 정확히 파악합니다.</p></div>
+<div class="step reveal d2"><div class="sn">STEP 02</div><h4>설계</h4><p>진단 결과를 토대로 학생만을 위한 맞춤 합격 로드맵과 지원 전략을 수립합니다.</p></div>
+<div class="step reveal d3"><div class="sn">STEP 03</div><h4>실행 · 관리</h4><p>월별 점검으로 전략의 실행을 관리하고, 변화하는 상황에 맞춰 계획을 조정합니다.</p></div>
+<div class="step reveal d4"><div class="sn">STEP 04</div><h4>합격</h4><p>원서 접수 전략과 면접·논술 대비까지, 최종 합격선에서 마지막을 함께 마무리합니다.</p></div>
+</div>
+</div>
+</section>
+
+<section class="contact" id="contact">
+<div class="wrap contact-grid">
+<div class="reveal">
+<span class="eyebrow">상담 신청</span>
+<h2>합격의 신호는<br>지금 <span class="gold">상담</span>에서 시작됩니다</h2>
+<p class="lead">우측 신청서를 남겨주시면, 전담 컨설턴트가 확인 후 영업일 기준 24시간 내에 직접 연락드립니다. 첫 진단 상담으로 현재 위치와 합격 가능성을 확인해 보세요.</p>
+<div class="channels">
+<div class="channel"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg><div><b>오시는 길</b><span>서울 강남구 대치동 · 대치 센터</span></div></div>
+<div class="channel"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>상담 시간</b><span>평일 10:00 – 21:00 · 신청서 접수 후 연락</span></div></div>
+</div>
+</div>
+<form class="inq reveal d2" id="inquiryForm" novalidate>
+<h3>1:1 상담 신청</h3>
+<p class="fdesc">아래 내용을 남겨주시면 담당 컨설턴트가 확인 후 연락드립니다. <span style="color:var(--signal-bright)">*</span> 표시는 필수입니다.</p>
+
+<div class="fgroup first">학생 정보</div>
+<div class="frow">
+<div class="field"><label for="iq_student">회원(학생) 이름 *</label><input id="iq_student" type="text" placeholder="학생 성함" required></div>
+<div class="field"><label>성별 *</label><div class="radios" id="iq_gender"><label class="radio"><input type="radio" name="gender" value="남">남</label><label class="radio"><input type="radio" name="gender" value="여">여</label></div></div>
+</div>
+<div class="frow">
+<div class="field"><label for="iq_grade">학년 *</label><select id="iq_grade" required><option value="">선택</option><option>중2</option><option>중3</option><option>고1</option><option>고2</option><option>고3</option><option>N수</option></select></div>
+<div class="field"><label for="iq_gpa">내신 성적대 *</label><select id="iq_gpa" required><option value="">선택</option><option>1등급대 (1.x)</option><option>2등급대 (2.x)</option><option>3등급대 (3.x)</option><option>4등급대 (4.x)</option><option>5등급대 (5.x)</option><option>6등급대 (6.x)</option><option>7등급 이하</option></select></div>
+</div>
+<div class="frow">
+<div class="field"><label for="iq_region">지역 *</label><select id="iq_region" required><option value="">선택</option><option>서울</option><option>경기도</option><option>인천</option><option>강원도</option><option>충청북도</option><option>충청남도</option><option>경상북도</option><option>경상남도</option><option>전라북도</option><option>전라남도</option><option>제주도</option><option>해외</option></select></div>
+<div class="field"><label for="iq_school">학교명 *</label><input id="iq_school" type="text" placeholder="재학(예정) 학교명" required></div>
+</div>
+
+<div class="fgroup">학부모 정보</div>
+<div class="frow">
+<div class="field"><label for="iq_parent">학부모 이름 *</label><input id="iq_parent" type="text" placeholder="학부모 성함" required></div>
+<div class="field"><label for="iq_phone">학부모 연락처 *</label><input id="iq_phone" type="tel" placeholder="010-0000-0000" required></div>
+</div>
+
+<div class="fgroup">상담 정보</div>
+<div class="field"><label for="iq_program">관심 프로그램</label><select id="iq_program"><option value="">선택</option><option>프리미엄 입시솔루션 컨설팅</option><option>합격 수시 전략 컨설팅</option><option>합격 정시 전략 컨설팅</option><option>검정고시 전략 컨설팅</option><option>합격 생기부를 위한 세특 컨설팅</option><option>고입 자소서 프로그램</option><option>합격 면접 프로그램 〈내용설정〉</option><option>합격 면접 프로그램 〈실전면접〉</option><option>통합 로드맵 / 기타</option></select></div>
+<div class="field"><label for="iq_target">목표 대학 및 학과 *</label><input id="iq_target" type="text" placeholder="예: OO대학교 OO학과 (자세할수록 상담에 도움이 됩니다)" required></div>
+<div class="field"><label for="iq_inquiry">문의 내용 *</label><textarea id="iq_inquiry" rows="3" placeholder="학생·학부모가 함께 상의한 내용, 궁금한 점을 자세히 남겨주세요." required></textarea></div>
+<div class="field"><label>상담 진행 상태 *</label><div class="radios col" id="iq_status">
+<label class="radio"><input type="radio" name="status" value="상품안내 완료 · 스케줄 조정만 필요">상품 안내가 다 되어, 스케줄 조정만 하면 됩니다</label>
+<label class="radio"><input type="radio" name="status" value="추가 상품안내 · 상담 필요">좀 더 자세한 상품 안내·상담이 필요합니다</label>
+</div></div>
+
+<label class="consent-check"><input type="checkbox" id="iq_consent"><span>개인정보 수집·이용에 동의합니다 *</span></label>
+<details class="privacy"><summary>수집·이용 안내 보기</summary><div class="pbody">· 수집 항목: 회원 유형·학년·성별, 학교명·지역, 내신 성적대, 학부모 성함·연락처, 목표 대학/학과, 상담 내용
+· 수집 목적: 상담 신청 접수 및 안내(마케팅 포함)
+· 보유·이용: 신청일로부터 30일 후 파기하며, 제3자에게 제공하지 않습니다.</div></details>
+
+<button type="submit" class="btn btn-gold">상담 신청하기 →</button>
+<p class="form-msg" id="formMsg" role="status"></p>
+</form>
+</div>
+</section>
+<footer><div class="wrap">
+<div class="foot-top">
+<div class="foot-brand"><b>합격시그널</b><p>대치동 입시컨설팅. 생기부·수시·정시, 학생 한 명의 데이터를 끝까지 읽어 가장 확실한 합격 전략을 설계합니다.</p></div>
+<div class="foot-cols">
+<div class="foot-col"><h6>프로그램</h6><a href="/program/premium">프리미엄 입시솔루션 컨설팅</a><a href="/program/susi">합격 수시 전략 컨설팅</a><a href="/program/jeongsi">합격 정시 전략 컨설팅</a><a href="/program/gumjeong">검정고시 전략 컨설팅</a></div>
+<div class="foot-col"><h6>바로가기</h6><a href="/#programs">전체 프로그램</a><a href="/#process">프로세스</a><a href="/#contact">상담 신청</a></div>
+</div></div>
+<div class="foot-bottom">
+<p class="legal">상호 합격시그널 · 서울 강남구 대치동<br>© 2026 HAPGYEOK SIGNAL. All rights reserved.</p>
+<p>대치동 입시컨설팅</p>
+</div></div></footer>
+<script>
+(function(){
+var h=document.getElementById('site-header');
+function s(){ if(window.scrollY>40){h.classList.add('scrolled');}else{h.classList.remove('scrolled');} }
+s();window.addEventListener('scroll',s,{passive:true});
+var b=document.getElementById('burger'),l=document.getElementById('navlinks');
+if(b&&l){b.addEventListener('click',function(){var o=l.classList.toggle('open');b.setAttribute('aria-expanded',o);});
+l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open');b.setAttribute('aria-expanded',false);});});}
+var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!rm&&'IntersectionObserver' in window){
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.14,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+}else{document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});}
+var f=document.getElementById('inquiryForm');
+if(f){f.addEventListener('submit',function(e){e.preventDefault();
+var m=document.getElementById('formMsg');
+var g=function(id){return document.getElementById(id);};
+var gv=function(n){var el=f.querySelector('input[name="'+n+'"]:checked');return el?el.value:'';};
+var err=function(t){m.textContent=t;m.className='form-msg err';};
+var payload={
+studentName:g('iq_student').value.trim(),gender:gv('gender'),
+grade:g('iq_grade').value,gpa:g('iq_gpa').value,region:g('iq_region').value,school:g('iq_school').value.trim(),
+parentName:g('iq_parent').value.trim(),parentPhone:g('iq_phone').value.trim(),
+program:g('iq_program').value,target:g('iq_target').value.trim(),
+inquiry1:g('iq_inquiry').value.trim(),status:gv('status'),consent:g('iq_consent').checked};
+if(!payload.studentName){err('학생 이름을 입력해 주세요.');return;}
+if(!payload.gender){err('학생 성별을 선택해 주세요.');return;}
+if(!payload.grade||!payload.gpa||!payload.region||!payload.school){err('학년·내신·지역·학교명을 모두 입력해 주세요.');return;}
+if(!payload.parentName||!payload.parentPhone){err('학부모 성함과 연락처를 입력해 주세요.');return;}
+if(!payload.target){err('목표 대학 및 학과를 입력해 주세요.');return;}
+if(!payload.inquiry1){err('문의 내용을 남겨주세요.');return;}
+if(!payload.status){err('상담 진행 상태를 선택해 주세요.');return;}
+if(!payload.consent){err('개인정보 수집·이용 동의가 필요합니다.');return;}
+m.textContent='신청을 접수하고 있습니다...';m.className='form-msg';
+fetch('/api/inquiry',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)})
+.then(function(r){return r.json();})
+.then(function(d){if(d&&d.ok){f.reset();m.textContent='\u2713 상담 신청이 접수되었습니다. 빠르게 연락드리겠습니다.';m.className='form-msg ok';}else{m.textContent=(d&&d.error)||'잠시 후 다시 시도해 주세요.';m.className='form-msg err';}})
+.catch(function(){m.textContent='전송 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';m.className='form-msg err';});
+});}
+})();
+</script>
+</body></html>
