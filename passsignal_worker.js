@@ -12,10 +12,7 @@ const SITE = {
   brandEn: "HAPGYEOK SIGNAL",
   tagline: "대치동 입시컨설팅",
   url: "https://passsignal.com",
-  tel: "02-000-0000",
-  kakao: "합격시그널",
-  email: "contact@passsignal.com",
-  addr: "서울 강남구 대치동",
+  tel: "010-3038-8978",
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -761,7 +758,7 @@ function footer() {
 <div class="foot-col"><h6>바로가기</h6><a href="/#programs">전체 프로그램</a><a href="/info">입시정보</a><a href="/#process">프로세스</a><a href="/#contact">상담 신청</a></div>
 </div></div>
 <div class="foot-bottom">
-<p class="legal">상호 ${SITE.brand} · ${SITE.addr}<br>© ${new Date().getFullYear()} ${SITE.brandEn}. All rights reserved.</p>
+<p class="legal">상호 ${SITE.brand} · 전화 ${SITE.tel}<br>© ${new Date().getFullYear()} ${SITE.brandEn}. All rights reserved.</p>
 <p>${SITE.tagline}</p>
 </div></div></footer>`;
 }
@@ -912,7 +909,7 @@ ${cats}
 <h2>합격의 신호는<br>지금 <span class="gold">상담</span>에서 시작됩니다</h2>
 <p class="lead">우측 신청서를 남겨주시면, 전담 컨설턴트가 확인 후 영업일 기준 24시간 내에 직접 연락드립니다. 첫 진단 상담으로 현재 위치와 합격 가능성을 확인해 보세요.</p>
 <div class="channels">
-<div class="channel"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg><div><b>오시는 길</b><span>${SITE.addr} · 대치 센터</span></div></div>
+<a class="channel" href="tel:${SITE.tel}" style="text-decoration:none;color:inherit"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><div><b>전화 상담</b><span>${SITE.tel} · 문자 상담도 가능</span></div></a>
 <div class="channel"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>상담 시간</b><span>평일 10:00 – 21:00 · 신청서 접수 후 연락</span></div></div>
 </div>
 </div>
