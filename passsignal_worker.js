@@ -816,6 +816,9 @@ fetch('/api/inquiry',{method:'POST',headers:{'content-type':'application/json'},
 })();
 </script>`;
 
+// 검색엔진 소유 확인값. 대시보드 Settings → Variables 에 NAVER_VERIFY / GOOGLE_VERIFY / DAUM_PIN 을 넣으면 자동 반영됩니다.
+const RUNTIME = { naverVerify: "", googleVerify: "", daumPin: "" };
+
 function pageLabel(path) {
   if (path === "/" || path === "") return "홈";
   if (path === "/info") return "입시정보";
@@ -853,7 +856,7 @@ function layout(title, desc, body, opts) {
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${pageUrl}">
-<meta name="application-name" content="${SITE.brand}">
+<meta name="application-name" content="${SITE.brand}">${RUNTIME.naverVerify ? `\n<meta name="naver-site-verification" content="${esc(RUNTIME.naverVerify)}">` : ""}${RUNTIME.googleVerify ? `\n<meta name="google-site-verification" content="${esc(RUNTIME.googleVerify)}">` : ""}
 <meta property="og:site_name" content="${SITE.brand}">
 <meta property="og:type" content="website"><meta property="og:title" content="${esc(title)}">
 <meta property="og:url" content="${pageUrl}">
@@ -1418,6 +1421,9 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, "") || "/";
+    RUNTIME.naverVerify = (env && env.NAVER_VERIFY) || "";
+    RUNTIME.googleVerify = (env && env.GOOGLE_VERIFY) || "";
+    RUNTIME.daumPin = (env && env.DAUM_PIN) || "";
 
     if (request.method === "POST" && path === "/api/inquiry") return handleInquiry(request, env);
     if (path === "/" || path === "/index.html") return htmlResponse(renderMain());
@@ -1430,7 +1436,8 @@ export default {
     if (m && PROGRAMS[m[1]]) return htmlResponse(renderDetail(PROGRAMS[m[1]]));
 
     if (path === "/robots.txt") {
-      return new Response("User-agent: *\nAllow: /\n\nSitemap: " + SITE.url + "/sitemap.xml\n", { headers: { "content-type": "text/plain; charset=utf-8" } });
+      const pin = RUNTIME.daumPin ? "\n#DaumWebMasterTool:" + RUNTIME.daumPin + "\n" : "";
+      return new Response("User-agent: *\nAllow: /\n\nSitemap: " + SITE.url + "/sitemap.xml\n" + pin, { headers: { "content-type": "text/plain; charset=utf-8" } });
     }
     if (path === "/sitemap.xml") return xmlResponse(renderSitemap());
     if (path === "/rss.xml" || path === "/feed.xml") return new Response(renderRss(), { headers: { "content-type": "application/rss+xml; charset=utf-8", "cache-control": "public, max-age=3600" } });
