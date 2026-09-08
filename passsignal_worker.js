@@ -783,6 +783,9 @@ if(!rm&&'IntersectionObserver' in window){
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.14,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 }else{document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});}
+if(location.pathname!=='/'){document.querySelectorAll('a[href^="/#contact"]').forEach(function(a){a.setAttribute('href','/?from='+encodeURIComponent(location.pathname)+'#contact');});}
+var fromPage='';try{fromPage=new URLSearchParams(location.search).get('from')||'';}catch(e){}
+if(!fromPage&&document.referrer){try{var ru=new URL(document.referrer);if(ru.host===location.host&&ru.pathname!=='/')fromPage=ru.pathname;}catch(e){}}
 var f=document.getElementById('inquiryForm');
 if(f){f.addEventListener('submit',function(e){e.preventDefault();
 var m=document.getElementById('formMsg');
@@ -794,7 +797,8 @@ studentName:g('iq_student').value.trim(),gender:gv('gender'),
 grade:g('iq_grade').value,gpa:g('iq_gpa').value,region:g('iq_region').value,school:g('iq_school').value.trim(),
 parentName:g('iq_parent').value.trim(),parentPhone:g('iq_phone').value.trim(),
 program:g('iq_program').value,target:g('iq_target').value.trim(),
-inquiry1:g('iq_inquiry').value.trim(),status:gv('status'),consent:g('iq_consent').checked};
+inquiry1:g('iq_inquiry').value.trim(),status:gv('status'),consent:g('iq_consent').checked,
+page:fromPage||location.pathname};
 if(!payload.studentName){err('학생 이름을 입력해 주세요.');return;}
 if(!payload.gender){err('학생 성별을 선택해 주세요.');return;}
 if(!payload.grade||!payload.gpa||!payload.region||!payload.school){err('학년·내신·지역·학교명을 모두 입력해 주세요.');return;}
@@ -812,16 +816,52 @@ fetch('/api/inquiry',{method:'POST',headers:{'content-type':'application/json'},
 })();
 </script>`;
 
-function layout(title, desc, body) {
+function pageLabel(path) {
+  if (path === "/" || path === "") return "홈";
+  if (path === "/info") return "입시정보";
+  const a = path.match(/^\/info\/([a-z0-9-]+)$/);
+  if (a && ARTICLES[a[1]]) return "입시정보 · " + ARTICLES[a[1]].title;
+  const m = path.match(/^\/program\/([a-z-]+)$/);
+  if (m && PROGRAMS[m[1]]) return PROGRAMS[m[1]].name;
+  return path;
+}
+
+function breadcrumbLd(path, name) {
+  const items = [{ "@type": "ListItem", position: 1, name: SITE.brand, item: SITE.url + "/" }];
+  if (path.startsWith("/info/")) items.push({ "@type": "ListItem", position: 2, name: "입시정보", item: SITE.url + "/info" });
+  if (path.startsWith("/program/")) items.push({ "@type": "ListItem", position: 2, name: "프로그램", item: SITE.url + "/#programs" });
+  items.push({ "@type": "ListItem", position: items.length + 1, name, item: SITE.url + path });
+  return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items };
+}
+
+function layout(title, desc, body, opts) {
+  const o = opts || {};
+  const path = o.path || "/";
+  const pageUrl = SITE.url + (path === "/" ? "/" : path);
+  const ld = [];
+  if (path === "/") {
+    ld.push({ "@context": "https://schema.org", "@type": "WebSite", name: SITE.brand, alternateName: SITE.brandEn, url: SITE.url + "/", inLanguage: "ko" });
+    ld.push({ "@context": "https://schema.org", "@type": "EducationalOrganization", name: SITE.brand, alternateName: SITE.brandEn, url: SITE.url + "/", telephone: SITE.tel, description: desc, areaServed: "KR",
+      address: { "@type": "PostalAddress", addressLocality: "서울", addressRegion: "강남구", addressCountry: "KR" } });
+  } else {
+    ld.push(breadcrumbLd(path, o.crumb || title));
+  }
+  if (o.ld) ld.push(...[].concat(o.ld));
+  const ldTags = ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(/</g, "\\u003c")}</script>`).join("\n");
   return `<!doctype html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${SITE.url}/">
+<link rel="canonical" href="${pageUrl}">
+<meta name="application-name" content="${SITE.brand}">
+<meta property="og:site_name" content="${SITE.brand}">
 <meta property="og:type" content="website"><meta property="og:title" content="${esc(title)}">
+<meta property="og:url" content="${pageUrl}">
 <meta property="og:description" content="${esc(desc)}"><meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="${FAVICON}">
 ${HEAD_FONTS}
+${ldTags}
 <style>${CSS}</style>
 </head><body>
 ${header()}
@@ -964,9 +1004,9 @@ ${cats}
 </div>
 </section>`;
 
-  return layout(`${SITE.brand} · ${SITE.tagline}`,
+  return layout(`${SITE.brand} | ${SITE.tagline}`,
     `${SITE.tagline} ${SITE.brand}. 생기부·수시·정시·면접 컨설팅으로 학생 한 명의 데이터를 끝까지 읽어 가장 확실한 합격 전략을 설계합니다.`,
-    body);
+    body, { path: "/" });
 }
 
 // ── 상세페이지 ──
@@ -1034,7 +1074,12 @@ ${steps}
 </div>
 </section>`;
 
-  return layout(`${esc(p.name)} · ${SITE.brand}`, `${esc(p.short)} ${SITE.tagline} ${SITE.brand}.`, body);
+  const desc = `${p.name} — ${p.short} ${p.category} 프로그램(${p.unit}), ${p.format}. ${SITE.tagline} ${SITE.brand}.`;
+  return layout(`${p.name} · ${SITE.brand}`, desc, body, {
+    path: `/program/${p.slug}`, crumb: p.name,
+    ld: { "@context": "https://schema.org", "@type": "Service", name: p.name, serviceType: p.category, description: p.short,
+      provider: { "@type": "EducationalOrganization", name: SITE.brand, url: SITE.url + "/" }, areaServed: "KR", url: SITE.url + "/program/" + p.slug },
+  });
 }
 
 function notFound() {
@@ -1044,7 +1089,7 @@ function notFound() {
 <p class="dintro">요청하신 페이지가 존재하지 않거나 이동되었습니다.</p>
 <div class="dcta"><a href="/" class="btn btn-gold">홈으로 →</a><a href="/#programs" class="btn btn-ghost">전체 프로그램</a></div>
 </div></section>`;
-  return layout(`페이지 없음 · ${SITE.brand}`, "페이지를 찾을 수 없습니다.", body);
+  return layout(`페이지 없음 · ${SITE.brand}`, "요청하신 페이지가 존재하지 않거나 이동되었습니다. 합격시그널 홈에서 프로그램과 입시정보를 다시 찾아보세요.", body, { path: "/404" });
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1207,7 +1252,12 @@ function renderArticle(a) {
 </div>
 </section>
 <section class="article"><div class="wrap">${a.body()}</div></section>`;
-  return layout(`${esc(a.title)} · ${SITE.brand}`, a.summary, body);
+  return layout(`${a.title} · ${SITE.brand}`, a.summary, body, {
+    path: `/info/${a.slug}`, crumb: a.title,
+    ld: { "@context": "https://schema.org", "@type": "Article", headline: a.title, description: a.summary, inLanguage: "ko",
+      mainEntityOfPage: SITE.url + "/info/" + a.slug, datePublished: a.date || "2026-09-01", dateModified: a.updated || a.date || "2026-09-01",
+      author: { "@type": "Organization", name: SITE.brand }, publisher: { "@type": "Organization", name: SITE.brand, url: SITE.url + "/" } },
+  });
 }
 
 function renderInfoList() {
@@ -1230,7 +1280,7 @@ function renderInfoList() {
 <p>전담 컨설턴트가 확인 후 빠르게 연락드립니다. 부담 없이 현재 상황부터 진단해 보세요.</p>
 <a href="/#contact" class="btn btn-gold">1:1 상담 신청하기 →</a>
 </div></section>`;
-  return layout(`입시정보 · ${SITE.brand}`, `대입 전형 일정과 데이터 분석 — ${SITE.tagline} ${SITE.brand} 입시정보`, body);
+  return layout(`입시정보 · ${SITE.brand}`, `수시·정시·수능 일정, 모집인원 변화, 지역별 전형 유불리까지 대입 핵심 데이터를 정리한 ${SITE.brand} 입시정보. ${SITE.tagline}.`, body, { path: "/info", crumb: "입시정보" });
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1260,6 +1310,7 @@ async function handleInquiry(request, env) {
     parentName: S(data.parentName), parentPhone,
     program: S(data.program), target: S(data.target),
     inquiry1: S(data.inquiry1), status: S(data.status),
+    page: (() => { const pth = S(data.page).replace(/[^\w\-\/]/g, "").slice(0, 80) || "/"; return pageLabel(pth) + " · " + pth; })(),
     consent: !!data.consent,
     at: new Date().toISOString(), atDisplay,
   };
@@ -1309,7 +1360,7 @@ function renderEmailHtml(r) {
   let rows = row("학생 이름", r.studentName) + row("성별", r.gender) + row("학년", r.grade) + row("내신 성적대", r.gpa) + row("지역", r.region) + row("학교명", r.school);
   rows += row("학부모 이름", r.parentName);
   rows += '<tr><td style="' + cell + '">학부모 연락처</td><td style="padding:13px 0;border-bottom:1px solid ' + line + ';"><a href="tel:' + tel + '" style="color:' + gold + ';font-size:17px;font-weight:800;text-decoration:none;">' + escapeHtml(r.parentPhone) + '</a></td></tr>';
-  rows += row("관심 프로그램", r.program) + row("목표 대학·학과", r.target) + row("진행 상태", r.status);
+  rows += row("관심 프로그램", r.program) + row("목표 대학·학과", r.target) + row("진행 상태", r.status) + row("유입 페이지", r.page);
   rows += '<tr><td style="' + cell + '">문의 내용</td><td style="padding:13px 0;font-size:14px;line-height:1.6;color:' + ink + ';">' + (r.inquiry1 ? escapeHtml(r.inquiry1).replace(/\n/g, "<br>") : "-") + '</td></tr>';
   return '<!doctype html><html><body style="margin:0;padding:24px 12px;background:#F3F2EE;font-family:-apple-system,BlinkMacSystemFont,Apple SD Gothic Neo,Malgun Gothic,sans-serif;">' +
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 10px 30px rgba(11,22,34,.10);">' +
@@ -1327,6 +1378,39 @@ function renderEmailHtml(r) {
 // ─────────────────────────────────────────────────────────────
 // 라우팅
 // ─────────────────────────────────────────────────────────────
+// IndexNow(네이버·빙) 키. 배포 후 https://passsignal.com/<키>.txt 로 확인 가능.
+const INDEXNOW_KEY = "8bcbfa25c541bae2b773662d1c0cf5c0";
+const xmlResponse = (s) => new Response(s, { headers: { "content-type": "application/xml; charset=utf-8", "cache-control": "public, max-age=3600" } });
+const xe = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+function sitePaths() {
+  return ["/", "/info", ...Object.values(ARTICLES).map((a) => "/info/" + a.slug), ...ORDER.map((s) => "/program/" + s)];
+}
+function renderSitemap() {
+  const today = new Date().toISOString().slice(0, 10);
+  const rows = sitePaths().map((p) => {
+    const pri = p === "/" ? "1.0" : p.startsWith("/program/") ? "0.8" : "0.7";
+    return `<url><loc>${SITE.url}${p}</loc><lastmod>${today}</lastmod><priority>${pri}</priority></url>`;
+  });
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows.join("\n")}\n</urlset>`;
+}
+function renderRss() {
+  const pub = new Date("2026-09-01T00:00:00+09:00").toUTCString();
+  const items = [
+    ...Object.values(ARTICLES).map((a) => ({ t: a.title, u: SITE.url + "/info/" + a.slug, d: a.summary })),
+    ...ORDER.map((s) => ({ t: PROGRAMS[s].name, u: SITE.url + "/program/" + s, d: PROGRAMS[s].short + " " + PROGRAMS[s].category + " 프로그램, " + PROGRAMS[s].unit + "." })),
+  ];
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+<title>${xe(SITE.brand)}</title>
+<link>${SITE.url}</link>
+<description>${xe(SITE.tagline + " " + SITE.brand + ". 생기부·수시·정시·면접 컨설팅.")}</description>
+<language>ko</language>
+<lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+${items.map((i) => `<item><title>${xe(i.t)}</title><link>${i.u}</link><description>${xe(i.d)}</description><guid isPermaLink="true">${i.u}</guid><pubDate>${pub}</pubDate></item>`).join("\n")}
+</channel></rss>`;
+}
+
 const htmlResponse = (s, status = 200) => new Response(s, { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-cache" } });
 
 export default {
@@ -1345,8 +1429,11 @@ export default {
     if (m && PROGRAMS[m[1]]) return htmlResponse(renderDetail(PROGRAMS[m[1]]));
 
     if (path === "/robots.txt") {
-      return new Response("User-agent: *\nAllow: /\n", { headers: { "content-type": "text/plain; charset=utf-8" } });
+      return new Response("User-agent: *\nAllow: /\n\nSitemap: " + SITE.url + "/sitemap.xml\n", { headers: { "content-type": "text/plain; charset=utf-8" } });
     }
+    if (path === "/sitemap.xml") return xmlResponse(renderSitemap());
+    if (path === "/rss.xml" || path === "/feed.xml") return new Response(renderRss(), { headers: { "content-type": "application/rss+xml; charset=utf-8", "cache-control": "public, max-age=3600" } });
+    if (path === "/" + INDEXNOW_KEY + ".txt") return new Response(INDEXNOW_KEY, { headers: { "content-type": "text/plain; charset=utf-8" } });
     return htmlResponse(notFound(), 404);
   },
 };
