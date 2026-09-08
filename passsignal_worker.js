@@ -370,15 +370,83 @@ const PROGRAMS = {
       },
     ],
   },
+  "allcare": {
+    slug: "allcare",
+    category: "장기 관리",
+    name: "올케어 진로진학학습 관리 컨설팅",
+    price: "상담 시 안내",
+    unit: "1년 (12개월) 종합 관리",
+    format: "대치 센터 정기 방문 · 담임 컨설턴트 주간 밀착 관리",
+    short: "진로 설계부터 생기부·성적 관리까지, 1년 프리미엄 마스터플랜.",
+    intro:
+      "고등학교 생활 전반을 아우르는 최상위 종합 입시 솔루션입니다. 막연한 진로 고민부터 체계적인 학교생활기록부(생기부) 디자인, 목표 대학 진학을 위한 성적 관리까지 입시의 모든 과정을 전문가가 1:1로 밀착 동행합니다. 단순한 방향 제시를 넘어, 1년 동안 학생의 든든한 페이스메이커가 되어 성공적인 입시 결과를 완성하는 프리미엄 마스터플랜입니다.",
+    targetLead: "대상 : 진로·진학의 종합적인 마스터링이 필요한 학생 및 학부모님",
+    target: [
+      "진로 방향성이 불확실해 생기부 스토리라인을 잡지 못하고 방황하는 학생",
+      "세특·수행평가·창의적 체험활동 등 복잡한 학생부 항목 관리가 막막한 학생",
+      "내신·모의고사 성적 관리와 학생부종합전형 준비를 동시에 해내기 버거운 학생",
+      "전문가의 장기적인 멘탈·학습 관리로 1년간 흔들림 없이 완주하고 싶은 학생",
+    ],
+    curIntro:
+      "단순한 조언을 넘어, 체계적인 4단계 시스템과 정기 상담으로 학생의 입시 여정을 완벽하게 관리합니다.",
+    curriculum: [
+      { title: "학생 자료 정밀 분석", points: ["사전 설문 및 제출 서류(학생부 등)를 다각도에서 면밀하게 분석하여 현재 위치를 정확히 파악"] },
+      { title: "심층 기초 상담 및 데이터 기반 진단", points: ["적성·심리·성격·지능·진로 등 다양한 필수 검사를 진행하고 해석", "객관적 데이터를 기반으로 가장 적합한 학습법과 진로를 파악해 초기 입시 전략 수립"] },
+      { title: "1:1 퍼스널 진로진학 학습 로드맵 설계", points: ["수립된 입시 전략에 근거해 흔들림 없이 목표를 향하는 학생 맞춤형 학습 로드맵을 치밀하게 설계"] },
+      { title: "주간 학생 밀착 상담 (핵심 관리)", points: ["담임 컨설턴트가 매주 학습 진행 상황을 점검하고 입시 변수를 철저히 통제(전 과정 기록)", "생기부·교내활동·수행평가·탐구 보고서·독서·플래너까지 학생부 완성에 필요한 모든 요소를 직접 코칭", "관리된 결과물을 모아 학생만의 경쟁력 있는 개별 포트폴리오를 제작"] },
+      { title: "시기별 입시 상담 & 학부모 정기 상담", points: ["변화하는 성적·상황에 맞춰 수시/정시 맞춤 전략을 고도화하고 면접 준비를 지원", "매월 상세한 현황 보고서를 제공하고 이를 바탕으로 학부모 상담을 진행"] },
+    ],
+  },
+
+  "sparta": {
+    slug: "sparta",
+    category: "장기 관리",
+    name: "올인원 스파르타 학습집중 관리 컨설팅",
+    price: "상담 시 안내",
+    unit: "6개월 집중 관리",
+    format: "대치 센터 정기 방문 · 주 1회 이상 밀착 상담",
+    short: "학습 습관부터 멘탈까지, 6개월 집중 훈련으로 극적인 변화를.",
+    intro:
+      "공부는 오래 앉아있는 ‘시간’ 싸움이 아니라 정확한 ‘방향’을 찾는 것입니다. 학습 습관부터 멘탈까지 6개월간 집중적으로 훈련하여 극적인 성적 향상과 자기주도적 변화를 이끌어내는 프리미엄 밀착 관리 프로그램입니다.",
+    targetLead: "대상 : 성적이 정체된 중·하위권 학생 및 학부모님",
+    target: [
+      "공부의 이유를 몰라 책상에 앉기조차 거부감이 드는 학생 (동기 부족)",
+      "반복된 실패에 좌절해 시도조차 포기하거나 위축된 학생",
+      "계획 없이 감에 의존해 비효율적으로 공부하는 학생",
+    ],
+    curIntro:
+      "합격시그널만의 4단계 관리 솔루션으로 외부에 의존하던 수동적 태도를 자발적 학습 태도로 바꿉니다.",
+    curriculum: [
+      { title: "심리적 리셋과 정서적 지지", points: ["학원을 ‘혼나는 곳’이 아닌 ‘다시 시작할 수 있는 곳’으로 인식하도록 안전한 공간을 제공", "비난 대신 ‘왜 그랬는지’ 묻는 감정 중심 피드백으로 상처받은 자존감을 회복"] },
+      { title: "심층 기초 상담 및 데이터 기반 진단", points: ["‘왜 이게 필요할까’를 스스로 깨닫게 하여 학습 동기를 세움", "‘자기 진단 → 루틴화 → 점검 → 피드백’의 선순환 사이클로 수동적 태도를 자발적 학습으로 전환"] },
+      { title: "시간표의 재설계 (맞춤형 바이오리듬 관리)", points: ["가용 시간·수면 패턴 등 생체 리듬을 분석해 최적화된 공부 시간표를 설계", "시간이 아닌 ‘목표 달성’을 기준으로 성취감을 쌓아 시험장 대응 능력을 극대화"] },
+      { title: "1:1 밀착 소통과 피드백 (멘탈 케어)", points: ["주 1회 이상 깊이 있는 상담으로 막힌 부분을 함께 해결", "혼자 공부할 때의 불안을 없애고 학습에만 집중하도록 든든한 러닝메이트 역할 수행"] },
+    ],
+  },
 };
 
-const ORDER = ["premium", "susi", "jeongsi", "gumjeong", "setuk", "jaso", "interview-content", "interview-real"];
+const ORDER = ["allcare", "sparta", "premium", "susi", "jeongsi", "gumjeong", "setuk", "jaso", "interview-content", "interview-real"];
 const CATEGORIES = [
+  { key: "장기 관리", desc: "6개월~1년, 전담 컨설턴트가 입시 전 과정을 밀착 관리합니다.", slugs: ["allcare", "sparta"] },
   { key: "종합 진단", desc: "어디서부터 시작할지 막막하다면, 큰 그림부터.", slugs: ["premium"] },
   { key: "대입 전략", desc: "수시·정시·검정고시, 가장 유리한 길을 설계합니다.", slugs: ["susi", "jeongsi", "gumjeong"] },
   { key: "학생부 · 자소서", desc: "서류의 완성도가 합격의 격차를 만듭니다.", slugs: ["setuk", "jaso"] },
   { key: "면접", desc: "준비한 만큼, 당일에 100% 보여주도록.", slugs: ["interview-content", "interview-real"] },
 ];
+
+// 프로그램 대표 문구 (브로슈어 카피)
+const TAGLINES = {
+  allcare: "1년간 학생의 든든한 페이스메이커가 되어 입시의 모든 과정을 함께합니다.",
+  sparta: "“어머님은 사랑만 주시고, 공부는 저희가 시킵니다.”",
+  premium: "입시는 타이밍입니다. 적시에 준비한 사람이 최고의 결과를 만듭니다.",
+  susi: "데이터 기반 맞춤형 수시 전략으로 합격을 향해 나아가세요.",
+  jeongsi: "1점의 점수도 낭비하지 않는 치밀한 전략으로 합격의 문을 엽니다.",
+  gumjeong: "검정고시, 불리함이 아닌 새로운 전략의 시작입니다.",
+  setuk: "변화하는 입시 환경에서, 세특의 중요성은 더욱 커졌습니다.",
+  jaso: "합격을 결정짓는 단 한 장의 서류, 대체 불가한 나만의 스토리로 완성합니다.",
+  "interview-content": "면접의 절반은 ‘어떤 질문이 나올지’를 미리 알고 대비하는 것입니다.",
+  "interview-real": "준비된 답변을 ‘어떻게’ 전달하느냐가 최종 합격을 결정합니다.",
+};
 
 // ─────────────────────────────────────────────────────────────
 // 공통 렌더링
@@ -415,7 +483,7 @@ header.scrolled{background:rgba(251,250,247,.92);backdrop-filter:saturate(180%) 
 .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
 .brand{display:flex;align-items:center;gap:11px;color:var(--paper)}
 header.scrolled .brand{color:var(--ink)}
-.brand b{font-family:var(--serif);font-size:1.18rem;font-weight:600;letter-spacing:-.01em;line-height:1.05}
+.brand b{font-family:var(--serif);font-size:1.3rem;font-weight:700;letter-spacing:-.01em;line-height:1.05}
 .brand small{display:block;font-size:.6rem;font-weight:600;letter-spacing:.26em;color:var(--signal);text-transform:uppercase;margin-top:2px}
 .navlinks{display:flex;align-items:center;gap:32px}
 .navlinks a{font-size:.92rem;font-weight:500;color:var(--muted-light);transition:color .25s}
@@ -546,6 +614,41 @@ form.inq .btn-gold{width:100%;justify-content:center;margin-top:6px;padding:15px
 .badge{font-size:.82rem;color:var(--paper);border:1px solid var(--line-light);padding:8px 14px;border-radius:2px;display:inline-flex;align-items:center;gap:7px}
 .badge.gold{border-color:var(--signal);color:var(--signal-bright)}
 .dcta{display:flex;gap:13px;margin-top:32px;flex-wrap:wrap;position:relative;z-index:2}
+.dquote{position:relative;z-index:2;font-family:var(--serif);font-size:clamp(1.05rem,2vw,1.35rem);color:var(--signal-bright);line-height:1.5;margin:0 0 18px;padding-left:16px;border-left:3px solid var(--signal);max-width:680px}
+.why{background:var(--paper)}
+.why .sec-head{margin-bottom:44px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.pillar{border-top:2px solid var(--ink);padding:26px 4px 4px}
+.pillar .pn{font-family:var(--serif);font-size:1.05rem;color:var(--signal);font-weight:600;letter-spacing:.06em}
+.pillar h3{font-size:1.24rem;margin:12px 0 12px;line-height:1.35}
+.pillar p{font-size:.95rem;color:var(--muted);line-height:1.72}
+.sysline{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap;align-items:stretch}
+.syscard{flex:1 1 200px;background:var(--paper-cool);border:1px solid var(--line);padding:20px 22px}
+.syscard b{display:block;font-family:var(--serif);font-size:1.05rem;color:var(--ink);margin-bottom:7px}
+.syscard span{font-size:.88rem;color:var(--muted);line-height:1.6}
+@media(max-width:860px){.pillars{grid-template-columns:1fr;gap:0}.pillar{border-top:1px solid var(--line);padding:24px 0 4px}.pillar:first-child{border-top:2px solid var(--ink)}}
+.article{padding:80px 0 30px}
+.article .wrap{max-width:900px}
+.article h2{font-size:1.55rem;margin:58px 0 14px}
+.article h3{font-family:var(--sans);font-size:1.02rem;font-weight:700;margin:26px 0 4px;color:var(--ink)}
+.article p{color:var(--muted);font-size:.99rem;line-height:1.85;margin:12px 0}
+.article p b,.anote b,.checks b{color:var(--ink)}
+.anote{font-size:.9rem;color:var(--muted);background:var(--paper-cool);border-left:3px solid var(--signal);padding:14px 18px;line-height:1.72}
+.tscroll{overflow-x:auto;margin:16px 0 6px;-webkit-overflow-scrolling:touch}
+.atable{width:100%;border-collapse:collapse;font-size:.9rem;min-width:620px}
+.atable th,.atable td{border:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top;line-height:1.6}
+.atable thead th{background:var(--ink);color:var(--paper);font-weight:600;font-size:.84rem;letter-spacing:.02em}
+.atable tbody th{background:var(--paper-cool);font-weight:600;font-size:.86rem}
+.atable td small{color:var(--muted);font-size:.78rem}
+.atable .up{color:#2F7A48;font-weight:700}
+.atable .dn{color:#B23B2E;font-weight:700}
+.checks{list-style:none;margin:14px 0 6px}
+.checks li{position:relative;padding:11px 0 11px 30px;font-size:.96rem;color:var(--muted);line-height:1.7;border-top:1px solid var(--line)}
+.checks li::before{content:"✓";position:absolute;left:4px;top:10px;color:var(--signal);font-weight:800}
+.a-cta{margin:60px 0 26px;background:var(--ink);padding:36px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap}
+.a-cta h3{font-family:var(--serif);color:var(--paper);font-size:1.35rem;margin:0 0 8px}
+.a-cta p{color:var(--muted-light);margin:0;max-width:520px}
+@media(max-width:640px){.a-cta{padding:28px 22px}}
 
 .dbody{padding:88px 0}
 .dbody-grid{display:grid;grid-template-columns:330px 1fr;gap:56px;align-items:start}
@@ -631,17 +734,17 @@ const HEAD_FONTS = `
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700&display=swap" rel="stylesheet">`;
 
-const FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1622'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23C79A4B'/%3E%3Cpath d='M16 9a7 7 0 0 1 7 7' stroke='%23C79A4B' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E";
+const FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%23C79A4B'/%3E%3Ccircle cx='20' cy='27' r='2.9' fill='%230B1622'/%3E%3Cpath d='M14 24.2Q20 18 26 24.2' stroke='%230B1622' stroke-width='2.4' stroke-linecap='round' fill='none'/%3E%3Cpath d='M10.5 20.4Q20 10.5 29.5 20.4' stroke='%230B1622' stroke-width='2.4' stroke-linecap='round' fill='none' stroke-opacity='.55'/%3E%3C/svg%3E";
 
-const MARK = `<svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="3.4" fill="#C79A4B"/><path d="M17 8.5a8.5 8.5 0 0 1 8.5 8.5" stroke="#C79A4B" stroke-width="1.6" stroke-linecap="round"/><path d="M17 4a13 13 0 0 1 13 13" stroke="#C79A4B" stroke-width="1.4" stroke-linecap="round" opacity=".55"/></svg>`;
+const MARK = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#C79A4B"/><rect x="1" y="1" width="38" height="38" rx="10" stroke="#E4B85F" stroke-opacity=".5" stroke-width="1"/><circle cx="20" cy="27" r="2.9" fill="#0B1622"/><path d="M14 24.2Q20 18 26 24.2" stroke="#0B1622" stroke-width="2.4" stroke-linecap="round"/><path d="M10.5 20.4Q20 10.5 29.5 20.4" stroke="#0B1622" stroke-width="2.4" stroke-linecap="round" stroke-opacity=".55"/></svg>`;
 
 function header() {
   return `<header id="site-header"><div class="wrap nav">
 <a href="/" class="brand" aria-label="${SITE.brand} 홈">${MARK}<span style="line-height:1"><b>${SITE.brand}</b><small>${SITE.brandEn}</small></span></a>
 <nav class="navlinks" id="navlinks">
 <a href="/#programs">프로그램</a>
+<a href="/info">입시정보</a>
 <a href="/#process">프로세스</a>
-<a href="/#contact">상담 안내</a>
 <a href="/#contact" class="btn btn-gold">상담 신청</a>
 </nav>
 <button class="hamburger" id="burger" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -655,7 +758,7 @@ function footer() {
 <div class="foot-brand"><b>${SITE.brand}</b><p>${SITE.tagline}. 생기부·수시·정시, 학생 한 명의 데이터를 끝까지 읽어 가장 확실한 합격 전략을 설계합니다.</p></div>
 <div class="foot-cols">
 <div class="foot-col"><h6>프로그램</h6>${links}</div>
-<div class="foot-col"><h6>바로가기</h6><a href="/#programs">전체 프로그램</a><a href="/#process">프로세스</a><a href="/#contact">상담 신청</a></div>
+<div class="foot-col"><h6>바로가기</h6><a href="/#programs">전체 프로그램</a><a href="/info">입시정보</a><a href="/#process">프로세스</a><a href="/#contact">상담 신청</a></div>
 </div></div>
 <div class="foot-bottom">
 <p class="legal">상호 ${SITE.brand} · ${SITE.addr}<br>© ${new Date().getFullYear()} ${SITE.brandEn}. All rights reserved.</p>
@@ -760,11 +863,27 @@ function renderMain() {
 <p class="lead reveal d2">수많은 전형과 변수 앞에서 길을 잃지 않도록. 생기부 설계부터 수시·정시·면접까지, 학생 한 명의 데이터를 끝까지 읽어 가장 확실한 합격 경로를 설계합니다.</p>
 <div class="hero-cta reveal d3"><a href="#programs" class="btn btn-gold">프로그램 보기 →</a><a href="#contact" class="btn btn-ghost">1:1 상담 신청</a></div>
 <div class="hero-trust reveal d4">
-<div><span class="num">8<em>개 프로그램</em></span><span class="lab">진단 · 수시 · 정시 · 면접</span></div>
+<div><span class="num">10<em>개 프로그램</em></span><span class="lab">장기 관리 · 진단 · 수시 · 정시 · 면접</span></div>
 <div><span class="num">10<em>년+</em></span><span class="lab">선별된 전문가 컨설팅</span></div>
 <div><span class="num">1:1</span><span class="lab">학생별 전담 맞춤 설계</span></div>
 </div>
 </div></div>
+</section>
+
+<section class="why">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow">왜 합격시그널인가</span><h2>합격에는<br>신뢰할 수 있는 근거가 있습니다</h2><p>넘치는 정보와 수많은 컨설팅 사이에서, 합격시그널은 데이터·전문성·관리 세 가지로 확실한 차이를 만듭니다.</p></div>
+<div class="pillars">
+<div class="pillar reveal d1"><div class="pn">01</div><h3>다양한 성적대<br>데이터 기반 맞춤 컨설팅</h3><p>지난 10년간의 입시 자료뿐 아니라 다양한 성적대 학생들의 데이터를 보유하고 있어, 최상위권만이 아닌 우리 아이에게 꼭 맞는 맞춤형 분석이 가능합니다.</p></div>
+<div class="pillar reveal d2"><div class="pn">02</div><h3>실제 합격을 만들어낸<br>전문 컨설턴트</h3><p>경험이 부족한 대학생이 아니라, 실제로 학생을 대학에 보낸 전문 컨설턴트가 학부모의 마음으로 목표 달성까지 함께합니다.</p></div>
+<div class="pillar reveal d3"><div class="pn">03</div><h3>기록과 관리가 동반된<br>체계적 학생관리시스템</h3><p>전담 관리팀이 빈틈없이 학생을 관리합니다. 꾸준한 기록과 관리로 결과를 바꾸는, 합격의 근거를 만들어 드립니다.</p></div>
+</div>
+<div class="sysline reveal d2">
+<div class="syscard"><b>관리팀장</b><span>사전 설문·검사, 프로그램 안내, 학생 멘탈 관리, 학부모 고민 상담</span></div>
+<div class="syscard"><b>전략연구팀</b><span>10년 이상 누적 데이터 활용, 입시 동향 예측, 입시 전략 수립</span></div>
+<div class="syscard"><b>담임 컨설턴트</b><span>생기부·성적·역량 입체 분석, 맞춤 수업·정기 상담, 수행 과정 관리</span></div>
+</div>
+</div>
 </section>
 
 <section class="programs" id="programs">
@@ -864,8 +983,9 @@ function renderDetail(p) {
 <section class="dhero">
 <div class="wrap">
 <div class="crumb"><a href="/">${esc(SITE.brand)}</a> &nbsp;/&nbsp; <a href="/#programs">프로그램</a> &nbsp;/&nbsp; ${esc(p.category)}</div>
-<span class="eyebrow">단기 프로그램 · ${esc(p.category)}</span>
+<span class="eyebrow">${esc(p.category)} 프로그램</span>
 <h1>${esc(p.name)}</h1>
+${TAGLINES[p.slug] ? `<p class="dquote">${esc(TAGLINES[p.slug])}</p>` : ""}
 <p class="dintro">${esc(p.intro)}</p>
 <div class="dbadges">
 <span class="badge gold">${esc(p.unit)}</span>
@@ -921,6 +1041,161 @@ function notFound() {
 <div class="dcta"><a href="/" class="btn btn-gold">홈으로 →</a><a href="/#programs" class="btn btn-ghost">전체 프로그램</a></div>
 </div></section>`;
   return layout(`페이지 없음 · ${SITE.brand}`, "페이지를 찾을 수 없습니다.", body);
+}
+
+// ─────────────────────────────────────────────────────────────
+// 입시정보 (정보글)
+// ─────────────────────────────────────────────────────────────
+function atable(head, rows) {
+  const th = head.map((h) => `<th>${h}</th>`).join("");
+  const trs = rows.map((r) => "<tr>" + r.map((c, i) => (i === 0 ? `<th scope="row">${c}</th>` : `<td>${c}</td>`)).join("") + "</tr>").join("");
+  return `<div class="tscroll"><table class="atable"><thead><tr>${th}</tr></thead><tbody>${trs}</tbody></table></div>`;
+}
+function checks(items) {
+  return `<ul class="checks">` + items.map((t) => `<li>${t}</li>`).join("") + `</ul>`;
+}
+
+function buildArticleSchedule() {
+  const Y1 = "2026학년도 (현 고3)", Y2 = "2027학년도 (현 고2)";
+  return `
+<p class="anote">2026학년도는 2025년 기준 <b>현 고3</b>, 2027학년도는 <b>현 고2</b>에게 적용되는 일정입니다. 세부 일정은 대학·전형별로 다를 수 있으니 최종 지원 전 반드시 각 대학 모집요강을 확인하세요.</p>
+
+<h2>수시·정시 학생부 작성 기준일</h2>
+${atable(["구분", Y1, Y2], [
+  ["수시 기준일", "2025. 08. 31 (일)", "2026. 08. 31 (월)"],
+  ["정시 기준일", "2025. 11. 30 (일)", "2026. 11. 30 (월)"],
+])}
+
+<h2>수시모집 일정</h2>
+${atable(["구분", Y1, Y2], [
+  ["원서접수", "2025. 09. 08 (월) ~ 12 (금) 중 3일 이상", "2026. 09. 07 (월) ~ 11 (금) 중 3일 이상"],
+  ["전형기간", "2025. 09. 13 (토) ~ 12. 14 (일) · 88일", "2026. 09. 12 (토) ~ 12. 14 (월) · 88일"],
+  ["합격자 발표", "2025. 12. 15 (월)까지", "2026. 12. 15 (화)까지"],
+  ["합격자 등록", "2025. 12. 16 (화) ~ 19 (금) · 4일", "2026. 12. 17 (목) ~ 22 (화) · 4일"],
+  ["미등록 충원 합격통보 마감", "2025. 12. 29 (월) 18시까지<br><small>홈페이지 발표 14시까지 · 14~18시는 개별통보만 가능</small>", "2026. 12. 28 (월) 18시까지<br><small>홈페이지 발표 14시까지 · 14~18시는 개별통보만 가능</small>"],
+  ["미등록 충원 등록 마감", "2025. 12. 29 (월) 22시까지", "2026. 12. 29 (화) 22시까지"],
+])}
+
+<h2>수능</h2>
+${atable(["구분", Y1, Y2], [
+  ["수능일", "2025. 11. 13 (목)", "2026. 11. 12 (목)"],
+  ["성적 통지", "2025. 12. 04 (목)", "2026. 12. 03 (목)"],
+])}
+
+<h2>정시모집 일정</h2>
+${atable(["구분", Y1, Y2], [
+  ["원서접수", "2025. 12. 30 (화) ~ 2026. 01. 02 (금) 중 3일 이상", "2026. 12. 30 (수) ~ 2027. 01. 02 (토) 중 3일 이상"],
+  ["전형기간", "가군 2026. 01. 06 (화) ~ 01. 13 (화) · 8일<br>나군 2026. 01. 15 (목) ~ 01. 22 (목) · 8일<br>다군 2026. 01. 27 (화) ~ 02. 02 (월) · 7일", "가군 2027. 01. 05 (화) ~ 01. 12 (화) · 8일<br>나군 2027. 01. 14 (목) ~ 01. 21 (목) · 8일<br>다군 2027. 01. 26 (화) ~ 02. 01 (화) · 8일"],
+  ["합격자 발표", "2026. 02. 06 (금)까지", "2027. 02. 06 (토)까지"],
+  ["합격자 등록", "2026. 02. 09 (월) ~ 02. 11 (수) · 3일", "2027. 02. 09 (화) ~ 02. 11 (목) · 3일"],
+  ["미등록 충원 합격통보 마감", "2026. 02. 20 (금) 18시까지<br><small>홈페이지 발표 14시까지 · 14~18시는 개별통보만 가능</small>", "2027. 02. 20 (토) 18시까지<br><small>홈페이지 발표 14시까지 · 14~18시는 개별통보만 가능</small>"],
+  ["미등록 충원 등록 마감", "2026. 02. 21 (토) 22시까지", "2027. 02. 22 (일) 22시까지"],
+])}
+
+<h2>추가모집</h2>
+${atable(["구분", Y1, Y2], [
+  ["접수 · 전형 · 합격통보", "2026. 02. 23 (월) ~ 03. 01 (일) · 발표 18시까지", "2027. 02. 23 (화) ~ 03. 01 (월) · 발표 18시까지"],
+  ["등록 마감", "2026. 03. 01 (일) 22시까지", "2027. 03. 01 (월) 22시까지"],
+])}
+
+<h2>대입전형 지역별 선발인원 비교</h2>
+<p>2026학년도 전체 모집인원은 <b>349,124명</b>으로 전년(344,296명) 대비 약 4,800명 늘었습니다. 특히 <b>정시 인원이 72,264명 → 76,682명(+4,418명)</b>으로 증가분의 대부분을 차지해, 정시 확대 흐름이 뚜렷합니다.</p>
+<h3>2026학년도 (현 고3)</h3>
+${atable(["권역", "수시모집", "정시모집", "합계"], [
+  ["수도권", "85,220 (64.7%)", "46,562 (35.3%)", "131,782"],
+  ["비수도권", "187,222 (86.1%)", "30,120 (13.9%)", "217,342"],
+  ["합계", "272,442 (78.0%)", "76,682 (22.0%)", "349,124"],
+])}
+<h3>2025학년도</h3>
+${atable(["권역", "수시모집", "정시모집", "합계"], [
+  ["수도권", "85,246 (64.6%)", "47,051 (35.6%)", "132,307"],
+  ["비수도권", "186,776 (88.1%)", "25,213 (11.9%)", "211,989"],
+  ["합계", "272,032 (79.0%)", "72,264 (21.0%)", "344,296"],
+])}
+
+<h2>2026학년도 지역별 전형 구성 (교과 · 종합 · 수능)</h2>
+${atable(["구분", "학생부 교과", "학생부 종합", "수능(정시)", "전체 정원"], [
+  ["서울", "17,200 (25.0%)", "22,500 (32.7%)", "28,000 (40.7%)", "68,700"],
+  ["수도권", "51,000 (38.7%)", "39,200 (29.8%)", "38,000 (28.8%)", "131,782"],
+  ["지방", "117,000 (53.8%)", "61,100 (28.1%)", "30,120 (13.9%)", "217,342"],
+])}
+${checks([
+  "서울은 정시가 지속 확대되고 있으며, 특히 16개 지정 대학은 <b>40% 이상을 정시로 선발</b>합니다. 수능 준비가 필수입니다.",
+  "교과(25.0%) · 종합(32.7%) 위주로 준비한 내신형 학생은 서울권에서 불리할 수 있습니다.",
+  "반대로 내신이 부족한 학생에게는 <b>서울권 정시가 기회</b>가 될 수 있습니다.",
+  "수도권은 내신형 · 수능형 모두에게 전형 선택의 유연성이 있습니다.",
+  "지방권은 교과 중심 수시 대비가 핵심 — 내신 성적 관리가 가장 중요합니다.",
+])}
+
+<h2>2025 → 2026, 전형 비중은 이렇게 달라졌습니다</h2>
+${atable(["권역", "전형", "2025학년도", "2026학년도", "변화"], [
+  ["서울", "교과", "약 22%", "25.0%", "<span class='up'>▲ 증가</span>"],
+  ["서울", "종합", "약 35%", "32.7%", "<span class='dn'>▼ 감소</span>"],
+  ["서울", "수능", "약 38~40%", "40.7%", "<span class='up'>▲ 증가</span>"],
+  ["수도권", "교과", "약 40%", "38.7%", "<span class='dn'>▼ 감소</span>"],
+  ["수도권", "종합", "약 30%", "29.8%", "거의 비슷"],
+  ["수도권", "수능", "약 27%", "28.8%", "<span class='up'>▲ 증가</span>"],
+  ["지방", "교과", "약 52%", "53.8%", "<span class='up'>▲ 증가</span>"],
+  ["지방", "종합", "약 30%", "28.1%", "<span class='dn'>▼ 감소</span>"],
+  ["지방", "수능", "약 13%", "13.9%", "<span class='up'>▲ 증가</span>"],
+])}
+${checks([
+  "<b>서울권 지원자</b> — 수능 준비를 강화해야 하며, 내신만으로는 부족할 수 있습니다.",
+  "<b>지방권 지원자</b> — 내신(학생부 교과·종합) 비중이 여전히 높으므로 생활기록부를 충실히 관리해야 합니다.",
+  "<b>수도권 지원자</b> — 균형 잡힌 대비가 중요합니다. 내신과 수능 모두 준비가 필요합니다.",
+])}
+
+<div class="a-cta">
+<div><h3>우리 아이에게 유리한 전형은 무엇일까요?</h3><p>같은 데이터라도 학생의 내신 · 모의고사 · 생기부에 따라 최적 전략은 완전히 달라집니다. 1:1 진단 상담으로 확인해 보세요.</p></div>
+<a href="/#contact" class="btn btn-gold">1:1 상담 신청 →</a>
+</div>`;
+}
+
+const ARTICLES = {
+  "daeip-schedule-2026-2027": {
+    slug: "daeip-schedule-2026-2027",
+    label: "대입 일정 · 데이터",
+    title: "2026 · 2027학년도 대입 전형일정 & 지역별 선발인원 총정리",
+    summary: "수시 · 수능 · 정시 · 추가모집 일정부터 지역별 전형 비중 변화까지, 현 고2 · 고3이 꼭 알아야 할 대입 핵심 데이터를 한눈에 정리했습니다.",
+    body: buildArticleSchedule,
+  },
+};
+
+function renderArticle(a) {
+  const body = `
+<section class="dhero">
+<div class="wrap">
+<div class="crumb"><a href="/">${esc(SITE.brand)}</a> &nbsp;/&nbsp; <a href="/info">입시정보</a></div>
+<span class="eyebrow">입시정보 · ${esc(a.label)}</span>
+<h1>${esc(a.title)}</h1>
+<p class="dintro">${esc(a.summary)}</p>
+</div>
+</section>
+<section class="article"><div class="wrap">${a.body()}</div></section>`;
+  return layout(`${esc(a.title)} · ${SITE.brand}`, a.summary, body);
+}
+
+function renderInfoList() {
+  const cards = Object.values(ARTICLES).map((a) => `<a class="pcard reveal" href="/info/${a.slug}">
+<span class="pcat">${esc(a.label)}</span>
+<h4>${esc(a.title)}</h4>
+<p>${esc(a.summary)}</p>
+<span class="pmeta"><span class="price">입시정보</span><span class="go">읽어보기 →</span></span>
+</a>`).join("");
+  const body = `
+<section class="dhero"><div class="wrap">
+<div class="crumb"><a href="/">${esc(SITE.brand)}</a> &nbsp;/&nbsp; 입시정보</div>
+<span class="eyebrow">입시정보</span>
+<h1>입시 데이터로 읽는<br>합격의 신호</h1>
+<p class="dintro">전형 일정, 모집인원 변화, 전형별 유불리까지 — 합격시그널이 핵심만 정리해 드립니다.</p>
+</div></section>
+<section class="related"><div class="wrap"><div class="pgrid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">${cards}</div></div></section>
+<section class="dcontact"><div class="wrap">
+<h2>합격의 신호는 지금 <span class="gold">상담</span>에서 시작됩니다</h2>
+<p>전담 컨설턴트가 확인 후 빠르게 연락드립니다. 부담 없이 현재 상황부터 진단해 보세요.</p>
+<a href="/#contact" class="btn btn-gold">1:1 상담 신청하기 →</a>
+</div></section>`;
+  return layout(`입시정보 · ${SITE.brand}`, `대입 전형 일정과 데이터 분석 — ${SITE.tagline} ${SITE.brand} 입시정보`, body);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1026,6 +1301,10 @@ export default {
 
     if (request.method === "POST" && path === "/api/inquiry") return handleInquiry(request, env);
     if (path === "/" || path === "/index.html") return htmlResponse(renderMain());
+
+    if (path === "/info") return htmlResponse(renderInfoList());
+    const a = path.match(/^\/info\/([a-z0-9-]+)$/);
+    if (a && ARTICLES[a[1]]) return htmlResponse(renderArticle(ARTICLES[a[1]]));
 
     const m = path.match(/^\/program\/([a-z-]+)$/);
     if (m && PROGRAMS[m[1]]) return htmlResponse(renderDetail(PROGRAMS[m[1]]));
