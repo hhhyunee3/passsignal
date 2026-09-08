@@ -630,6 +630,13 @@ form.inq .btn-gold{width:100%;justify-content:center;margin-top:6px;padding:15px
 .article h3{font-family:var(--sans);font-size:1.02rem;font-weight:700;margin:26px 0 4px;color:var(--ink)}
 .article p{color:var(--muted);font-size:.99rem;line-height:1.85;margin:12px 0}
 .article p b,.anote b,.checks b{color:var(--ink)}
+.rtabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+.rtabs button{font-family:var(--sans);font-size:.95rem;font-weight:700;padding:10px 18px;border-radius:999px;border:1px solid var(--line, #d9d3c7);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.rtabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rpane{display:none}
+.rpane.on{display:block;animation:fadeUp .35s both}
+.rpane .up{color:#c0392b;font-weight:700}.rpane .down{color:#2c6bb3;font-weight:700}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .anote{font-size:.9rem;color:var(--muted);background:var(--paper-cool);border-left:3px solid var(--signal);padding:14px 18px;line-height:1.72}
 .tscroll{overflow-x:auto;margin:16px 0 6px;-webkit-overflow-scrolling:touch}
 .atable{width:100%;border-collapse:collapse;font-size:.9rem;min-width:620px}
@@ -1095,52 +1102,83 @@ ${atable(["구분", Y1, Y2], [
   ["등록 마감", "2026. 03. 01 (일) 22시까지", "2027. 03. 01 (월) 22시까지"],
 ])}
 
-<h2>대입전형 지역별 선발인원 비교</h2>
-<p>2026학년도 전체 모집인원은 <b>349,124명</b>으로 전년(344,296명) 대비 약 4,800명 늘었습니다. 특히 <b>정시 인원이 72,264명 → 76,682명(+4,418명)</b>으로 증가분의 대부분을 차지해, 정시 확대 흐름이 뚜렷합니다.</p>
-<h3>2026학년도 (현 고3)</h3>
-${atable(["권역", "수시모집", "정시모집", "합계"], [
-  ["수도권", "85,220 (64.7%)", "46,562 (35.3%)", "131,782"],
-  ["비수도권", "187,222 (86.1%)", "30,120 (13.9%)", "217,342"],
-  ["합계", "272,442 (78.0%)", "76,682 (22.0%)", "349,124"],
-])}
-<h3>2025학년도</h3>
-${atable(["권역", "수시모집", "정시모집", "합계"], [
-  ["수도권", "85,246 (64.6%)", "47,051 (35.6%)", "132,307"],
-  ["비수도권", "186,776 (88.1%)", "25,213 (11.9%)", "211,989"],
-  ["합계", "272,032 (79.0%)", "72,264 (21.0%)", "344,296"],
-])}
+<h2>우리 지역 대입 전형, 얼마나 뽑나요?</h2>
+<p>2026학년도 전체 모집인원은 <b>349,124명</b>으로 전년(344,296명) 대비 약 4,800명 늘었습니다. 특히 <b>정시 인원이 72,264명 → 76,682명(+4,418명)</b>으로 증가분의 대부분을 차지해, 정시 확대 흐름이 뚜렷합니다. 모집요강은 지역(권역)마다 다르므로, 아래에서 <b>지원할 지역</b>을 고르면 그 지역에 해당하는 내용만 보여드립니다.</p>
+<div class="rtabs" role="tablist" aria-label="지역 선택">
+<button type="button" class="on" data-region="seoul">서울</button><button type="button" data-region="metro">경기 · 인천 (수도권)</button><button type="button" data-region="local">지방 (비수도권)</button>
+</div>
 
-<h2>2026학년도 지역별 전형 구성 (교과 · 종합 · 수능)</h2>
+<div class="rpane on" data-region="seoul">
+<h3>2026학년도 서울권 전형 구성 (현 고3)</h3>
 ${atable(["구분", "학생부 교과", "학생부 종합", "수능(정시)", "전체 정원"], [
   ["서울", "17,200 (25.0%)", "22,500 (32.7%)", "28,000 (40.7%)", "68,700"],
-  ["수도권", "51,000 (38.7%)", "39,200 (29.8%)", "38,000 (28.8%)", "131,782"],
-  ["지방", "117,000 (53.8%)", "61,100 (28.1%)", "30,120 (13.9%)", "217,342"],
+])}
+<h3>2025 → 2026 전형 비중 변화</h3>
+${atable(["전형", "2025학년도", "2026학년도", "변화"], [
+  ["교과", "약 22%", "25.0%", "<span class='up'>▲ 증가</span>"],
+  ["종합", "약 35%", "32.7%", "<span class='down'>▼ 감소</span>"],
+  ["수능", "약 38~40%", "40.7%", "<span class='up'>▲ 증가</span>"],
 ])}
 ${checks([
-  "서울은 정시가 지속 확대되고 있으며, 특히 16개 지정 대학은 <b>40% 이상을 정시로 선발</b>합니다. 수능 준비가 필수입니다.",
+  "서울은 정시가 지속 확대되고 있으며, 특히 <b>16개 지정 대학은 40% 이상을 정시로 선발</b>합니다. 수능 준비가 필수입니다.",
   "교과(25.0%) · 종합(32.7%) 위주로 준비한 내신형 학생은 서울권에서 불리할 수 있습니다.",
-  "반대로 내신이 부족한 학생에게는 <b>서울권 정시가 기회</b>가 될 수 있습니다.",
-  "수도권은 내신형 · 수능형 모두에게 전형 선택의 유연성이 있습니다.",
-  "지방권은 교과 중심 수시 대비가 핵심 — 내신 성적 관리가 가장 중요합니다.",
+  "반대로 내신이 부족한 학생에게는 서울권 <b>정시가 기회</b>가 될 수 있습니다.",
+  "<b>서울권 지원자</b> — 수능 준비를 강화해야 하며, 내신만으로는 부족할 수 있습니다.",
 ])}
+</div>
 
-<h2>2025 → 2026, 전형 비중은 이렇게 달라졌습니다</h2>
-${atable(["권역", "전형", "2025학년도", "2026학년도", "변화"], [
-  ["서울", "교과", "약 22%", "25.0%", "<span class='up'>▲ 증가</span>"],
-  ["서울", "종합", "약 35%", "32.7%", "<span class='dn'>▼ 감소</span>"],
-  ["서울", "수능", "약 38~40%", "40.7%", "<span class='up'>▲ 증가</span>"],
-  ["수도권", "교과", "약 40%", "38.7%", "<span class='dn'>▼ 감소</span>"],
-  ["수도권", "종합", "약 30%", "29.8%", "거의 비슷"],
-  ["수도권", "수능", "약 27%", "28.8%", "<span class='up'>▲ 증가</span>"],
-  ["지방", "교과", "약 52%", "53.8%", "<span class='up'>▲ 증가</span>"],
-  ["지방", "종합", "약 30%", "28.1%", "<span class='dn'>▼ 감소</span>"],
-  ["지방", "수능", "약 13%", "13.9%", "<span class='up'>▲ 증가</span>"],
+<div class="rpane" data-region="metro">
+<h3>2026학년도 수도권 선발인원 (현 고3)</h3>
+${atable(["권역", "수시모집", "정시모집", "합계"], [
+  ["수도권 (2026)", "85,220 (64.7%)", "46,562 (35.3%)", "131,782"],
+  ["수도권 (2025)", "85,246 (64.6%)", "47,051 (35.6%)", "132,307"],
+])}
+<h3>2026학년도 수도권 전형 구성</h3>
+${atable(["구분", "학생부 교과", "학생부 종합", "수능(정시)", "전체 정원"], [
+  ["수도권", "51,000 (38.7%)", "39,200 (29.8%)", "38,000 (28.8%)", "131,782"],
+])}
+<h3>2025 → 2026 전형 비중 변화</h3>
+${atable(["전형", "2025학년도", "2026학년도", "변화"], [
+  ["교과", "약 40%", "38.7%", "<span class='down'>▼ 감소</span>"],
+  ["종합", "약 30%", "29.8%", "거의 비슷"],
+  ["수능", "약 27%", "28.8%", "<span class='up'>▲ 증가</span>"],
 ])}
 ${checks([
-  "<b>서울권 지원자</b> — 수능 준비를 강화해야 하며, 내신만으로는 부족할 수 있습니다.",
-  "<b>지방권 지원자</b> — 내신(학생부 교과·종합) 비중이 여전히 높으므로 생활기록부를 충실히 관리해야 합니다.",
+  "수도권은 내신형 · 수능형 모두에게 <b>전형 선택의 유연성</b>이 있습니다.",
   "<b>수도권 지원자</b> — 균형 잡힌 대비가 중요합니다. 내신과 수능 모두 준비가 필요합니다.",
 ])}
+</div>
+
+<div class="rpane" data-region="local">
+<h3>2026학년도 비수도권 선발인원 (현 고3)</h3>
+${atable(["권역", "수시모집", "정시모집", "합계"], [
+  ["비수도권 (2026)", "187,222 (86.1%)", "30,120 (13.9%)", "217,342"],
+  ["비수도권 (2025)", "186,776 (88.1%)", "25,213 (11.9%)", "211,989"],
+])}
+<h3>2026학년도 지방권 전형 구성</h3>
+${atable(["구분", "학생부 교과", "학생부 종합", "수능(정시)", "전체 정원"], [
+  ["지방", "117,000 (53.8%)", "61,100 (28.1%)", "30,120 (13.9%)", "217,342"],
+])}
+<h3>2025 → 2026 전형 비중 변화</h3>
+${atable(["전형", "2025학년도", "2026학년도", "변화"], [
+  ["교과", "약 52%", "53.8%", "<span class='up'>▲ 증가</span>"],
+  ["종합", "약 30%", "28.1%", "<span class='down'>▼ 감소</span>"],
+  ["수능", "약 13%", "13.9%", "<span class='up'>▲ 증가</span>"],
+])}
+${checks([
+  "지방권은 <b>교과 중심 수시 대비가 핵심</b> — 내신 성적 관리가 가장 중요합니다.",
+  "<b>지방권 지원자</b> — 내신(학생부 교과·종합) 비중이 여전히 높으므로 생활기록부를 충실히 관리해야 합니다.",
+])}
+</div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('.rtabs button'), panes=document.querySelectorAll('.rpane');
+  function show(r){ tabs.forEach(function(b){ b.classList.toggle('on', b.dataset.region===r); }); panes.forEach(function(p){ p.classList.toggle('on', p.dataset.region===r); }); try{ localStorage.setItem('ps_region', r); }catch(e){} }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ show(b.dataset.region); }); });
+  var q=new URLSearchParams(location.search).get('region'), saved=null; try{ saved=localStorage.getItem('ps_region'); }catch(e){}
+  var init=q||saved; if(init && document.querySelector('.rpane[data-region="'+init+'"]')) show(init);
+})();
+</script>
 
 <div class="a-cta">
 <div><h3>우리 아이에게 유리한 전형은 무엇일까요?</h3><p>같은 데이터라도 학생의 내신 · 모의고사 · 생기부에 따라 최적 전략은 완전히 달라집니다. 1:1 진단 상담으로 확인해 보세요.</p></div>
