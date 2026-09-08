@@ -841,7 +841,7 @@ function layout(title, desc, body, opts) {
   const ld = [];
   if (path === "/") {
     ld.push({ "@context": "https://schema.org", "@type": "WebSite", name: SITE.brand, alternateName: SITE.brandEn, url: SITE.url + "/", inLanguage: "ko" });
-    ld.push({ "@context": "https://schema.org", "@type": "EducationalOrganization", name: SITE.brand, alternateName: SITE.brandEn, url: SITE.url + "/", telephone: SITE.tel, description: desc, areaServed: "KR",
+    ld.push({ "@context": "https://schema.org", "@type": "EducationalOrganization", name: SITE.brand, alternateName: SITE.brandEn, url: SITE.url + "/", telephone: SITE.tel, description: desc, areaServed: "KR", image: SITE.url + "/og.png", logo: SITE.url + "/og.png",
       address: { "@type": "PostalAddress", addressLocality: "서울", addressRegion: "강남구", addressCountry: "KR" } });
   } else {
     ld.push(breadcrumbLd(path, o.crumb || title));
@@ -858,7 +858,8 @@ function layout(title, desc, body, opts) {
 <meta property="og:type" content="website"><meta property="og:title" content="${esc(title)}">
 <meta property="og:url" content="${pageUrl}">
 <meta property="og:description" content="${esc(desc)}"><meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="${SITE.url}/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="${SITE.url}/og.png">
 <link rel="icon" href="${FAVICON}">
 ${HEAD_FONTS}
 ${ldTags}
@@ -1256,7 +1257,7 @@ function renderArticle(a) {
     path: `/info/${a.slug}`, crumb: a.title,
     ld: { "@context": "https://schema.org", "@type": "Article", headline: a.title, description: a.summary, inLanguage: "ko",
       mainEntityOfPage: SITE.url + "/info/" + a.slug, datePublished: a.date || "2026-09-01", dateModified: a.updated || a.date || "2026-09-01",
-      author: { "@type": "Organization", name: SITE.brand }, publisher: { "@type": "Organization", name: SITE.brand, url: SITE.url + "/" } },
+      image: SITE.url + "/og.png", author: { "@type": "Organization", name: SITE.brand }, publisher: { "@type": "Organization", name: SITE.brand, url: SITE.url + "/" } },
   });
 }
 

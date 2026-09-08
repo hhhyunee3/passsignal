@@ -20,3 +20,7 @@ compatibility_date = "2026-06-01"
 # 대시보드 Settings → Variables and Secrets, 또는 아래 명령으로 등록하세요:
 #   npx wrangler secret put NOTIFY_TO
 #   npx wrangler secret put SHEET_WEBHOOK_URL
+
+# 정적 파일(og.png 등)은 public/ 에 두면 그대로 서비스됩니다.
+[assets]
+directory = "./public/"
