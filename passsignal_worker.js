@@ -1391,7 +1391,9 @@ function sitePaths() {
   return ["/", "/info", ...Object.values(ARTICLES).map((a) => "/info/" + a.slug), ...ORDER.map((s) => "/program/" + s)];
 }
 function renderSitemap() {
-  const today = new Date().toISOString().slice(0, 10);
+  // 예전에는 요청할 때마다 오늘 날짜였다(실제 변경과 무관). ~/projects/deploy.sh 가 git 에서 본문이 마지막으로
+  // 바뀐 날을 읽어 CONTENT_DATE 로 넣는다(wrangler --define). 아래 값은 로컬 개발용 기본값.
+  const today = typeof CONTENT_DATE !== 'undefined' ? CONTENT_DATE : '2026-09-09';
   const rows = sitePaths().map((p) => {
     const pri = p === "/" ? "1.0" : p.startsWith("/program/") ? "0.8" : "0.7";
     return `<url><loc>${SITE.url}${p}</loc><lastmod>${today}</lastmod><priority>${pri}</priority></url>`;
