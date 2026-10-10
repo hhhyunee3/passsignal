@@ -1,3 +1,4 @@
+import { guardResponse } from './telguard.js'; // 전화번호: 푸터에서 삭제, PC 너비에서 숨김 (2026-10-10)
 // 합격시그널 — 대치동 입시컨설팅 · Cloudflare Worker
 // 메인페이지(/) + 프로그램 상세페이지(/program/{slug}) 동적 생성, 상담 신청(/api/inquiry) 처리.
 // 배포:  npx wrangler deploy
@@ -1419,7 +1420,7 @@ ${items.map((i) => `<item><title>${xe(i.t)}</title><link>${i.u}</link><descripti
 
 const htmlResponse = (s, status = 200) => new Response(s, { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-cache" } });
 
-export default {
+const __APP = {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, "") || "/";
@@ -1449,3 +1450,6 @@ export default {
 };
 
 export { renderMain, renderDetail, PROGRAMS, ORDER, SITE };
+
+// 모든 HTML 응답을 telguard 로 한 번 거친다 (fetch 만 감싸고 scheduled 등 나머지는 그대로)
+export default { ...__APP, fetch: (req, env, ctx) => guardResponse(__APP.fetch(req, env, ctx)) };
