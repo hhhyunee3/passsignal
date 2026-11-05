@@ -811,8 +811,8 @@ if(!payload.consent){err('개인정보 수집·이용 동의가 필요합니다.
 m.textContent='신청을 접수하고 있습니다...';m.className='form-msg';
 fetch('/api/inquiry',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)})
 .then(function(r){return r.json();})
-.then(function(d){if(d&&d.ok){f.reset();m.textContent='\\u2713 상담 신청이 접수되었습니다. 빠르게 연락드리겠습니다.';m.className='form-msg ok';}else{m.textContent=(d&&d.error)||'잠시 후 다시 시도해 주세요.';m.className='form-msg err';}})
-.catch(function(){m.textContent='전송 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';m.className='form-msg err';});
+.then(function(d){if(d&&d.ok){f.reset();m.textContent='\\u2713 상담 신청이 접수되었습니다. 빠르게 연락드리겠습니다.';m.className='form-msg ok';}else{m.textContent=(d&&d.error)||'접수 중 문제가 생겼습니다. ${SITE.tel} 으로 전화나 문자 주시면 바로 상담 도와드리겠습니다.';m.className='form-msg err';}})
+.catch(function(){m.textContent='전송 중 문제가 생겼습니다. ${SITE.tel} 으로 전화나 문자 주시면 바로 상담 도와드리겠습니다.';m.className='form-msg err';});
 });}
 })();
 </script>`;
@@ -1320,26 +1320,61 @@ async function handleInquiry(request, env) {
     at: new Date().toISOString(), atDisplay,
   };
 
-  // 1) 이메일 알림 (Cloudflare Email Routing) — env.NOTIFY + env.NOTIFY_TO 있을 때만
+  // 2026-11-05 알림 이중화: KV 보관을 맨 먼저 한다. 손님 화면의 "접수 완료"는 KV 저장이 성공했을 때만 뜬다.
+  // KV 가 실패하면 손님에게 전화번호를 안내한다. 메일·텔레그램·시트는 그 뒤에 하고, 실패해도 접수 결과에는 영향이 없다.
   try {
-    if (env && env.NOTIFY && env.NOTIFY_TO) {
-      const { EmailMessage } = await import("cloudflare:email");
-      const from = env.NOTIFY_FROM || ("noreply@" + new URL(SITE.url).host);
-      const subject = "[" + record.site + "] 상담 신청 - " + studentName + (record.program ? " (" + record.program + ")" : "");
-      const raw = buildMime({ from, fromName: record.site, to: env.NOTIFY_TO, subject, html: renderEmailHtml(record) });
-      await env.NOTIFY.send(new EmailMessage(from, env.NOTIFY_TO, raw));
-    }
-  } catch (e) { console.log("알림 메일 실패:", e && e.message ? e.message : e); }
+    if (!env || !env.INQUIRY) throw new Error("INQUIRY 바인딩 없음");
+    const t = new Date().toISOString().replace(/[-:T.]/g, "").slice(0, 14);
+    await env.INQUIRY.put(t + "-passsignal.com-" + Math.random().toString(36).slice(2, 8),
+      JSON.stringify({ domain: "passsignal.com", ...record }), { expirationTtl: 60 * 60 * 24 * 365 });
+  } catch (e) {
+    console.log("KV 보관 실패:", e && e.message ? e.message : e);
+    return json({ ok: false, error: "접수 중 문제가 생겼습니다. 번거로우시겠지만 " + SITE.tel + " 으로 전화나 문자 주시면 바로 상담 도와드리겠습니다.", tel: SITE.tel }, 500);
+  }
 
-  // 2) 구글 시트 기록 — env.SHEET_WEBHOOK_URL 있을 때만
-  try {
-    if (env && env.SHEET_WEBHOOK_URL) {
-      await fetch(env.SHEET_WEBHOOK_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(record) });
-    }
-  } catch (e) { console.log("시트 기록 실패:", e && e.message ? e.message : e); }
-
-  console.log("새 상담 신청:", JSON.stringify(record));
+  const results = await Promise.allSettled([sendMail(env, record), sendTelegram(env, record), saveSheet(env, record)]);
+  const st = (x) => (x.status === "fulfilled" ? (x.value ? "성공" : "건너뜀") : "실패");
+  console.log("새 상담 신청 · 메일 " + st(results[0]) + " · 텔레그램 " + st(results[1]) + " · 시트 " + st(results[2]));
+  results.forEach((x, i) => { if (x.status === "rejected") console.log(["메일", "텔레그램", "시트"][i] + " 오류:", x.reason && x.reason.message ? x.reason.message : x.reason); });
   return json({ ok: true });
+}
+
+// 메일: send_email 바인딩 NOTIFY (wrangler.toml 의 destination_address 로만 보낼 수 있다).
+async function sendMail(env, record) {
+  if (!env || !env.NOTIFY) return false;
+  const { EmailMessage } = await import("cloudflare:email");
+  const to = env.NOTIFY_TO || "hhhyunee3@naver.com";
+  const from = env.NOTIFY_FROM || ("noreply@" + new URL(SITE.url).host);
+  const subject = "[" + record.site + "] 상담 신청 - " + record.studentName + (record.program ? " (" + record.program + ")" : "");
+  const raw = buildMime({ from, fromName: record.site, to, subject, html: renderEmailHtml(record) });
+  await env.NOTIFY.send(new EmailMessage(from, to, raw));
+  return true;
+}
+
+// 텔레그램: 첫 줄 [사이트 이름]. 5초 넘으면 끊는다.
+async function sendTelegram(env, r) {
+  const token = env && env.TELEGRAM_BOT_TOKEN, chat = env && env.TELEGRAM_CHAT_ID;
+  if (!token || !chat) return false;
+  const lines = ["[" + r.site + "] 새 상담 신청", "",
+    "학생: " + r.studentName + (r.gender ? " (" + r.gender + ")" : "") + " · " + [r.grade, r.school, r.region].filter(Boolean).join(" · "),
+    "내신: " + (r.gpa || "-") + " · 목표: " + (r.target || "-"),
+    "학부모: " + (r.parentName || "-") + " · " + r.parentPhone,
+    "프로그램: " + (r.program || "-") + " · 진행 상태: " + (r.status || "-"),
+    "내용: " + (r.inquiry1 || "-"), "유입: " + r.page, r.atDisplay];
+  const res = await fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
+    method: "POST", headers: { "content-type": "application/json" }, signal: AbortSignal.timeout(5000),
+    body: JSON.stringify({ chat_id: chat, text: lines.join("\n"), disable_web_page_preview: true }),
+  });
+  if (!res.ok) throw new Error("텔레그램 응답 " + res.status);
+  return true;
+}
+
+// 구글 시트: SHEET_WEBHOOK_URL 이 있을 때만.
+async function saveSheet(env, record) {
+  if (!env || !env.SHEET_WEBHOOK_URL) return false;
+  const res = await fetch(env.SHEET_WEBHOOK_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(record), signal: AbortSignal.timeout(5000) });
+  if (!res.ok) throw new Error("시트 응답 " + res.status);
+  return true;
 }
 
 function encodeWord(s) { return "=?UTF-8?B?" + btoa(String.fromCharCode(...new TextEncoder().encode(s))) + "?="; }
@@ -1351,6 +1386,8 @@ function buildMime({ from, fromName, to, subject, html }) {
   const wrapped = (b64.match(/.{1,76}/g) || [b64]).join("\r\n");
   const headers = [
     "From: " + fromHeader, "To: " + to, "Subject: " + encodeWord(subject),
+    // 2026-11-05: Date·Message-ID 가 없으면 Cloudflare 스팸 점수 5점(기준 5)으로 거부된다. 외국어 사이트와 같은 수정.
+    "Date: " + new Date().toUTCString().replace("GMT", "+0000"), "Message-ID: <" + crypto.randomUUID() + "@" + from.split("@")[1] + ">",
     "MIME-Version: 1.0", "Content-Type: text/html; charset=utf-8", "Content-Transfer-Encoding: base64",
   ];
   return headers.join("\r\n") + "\r\n\r\n" + wrapped + "\r\n";

@@ -8,13 +8,20 @@ compatibility_date = "2026-06-01"
 # ─────────────────────────────────────────────
 # (선택) 상담 알림 메일 — Cloudflare Email Routing 설정 후 주석 해제
 # Email Routing에서 발신/수신 주소를 먼저 인증해야 실제 발송됩니다.
-# [[send_email]]
-# name = "NOTIFY"
+# 2026-11-05 알림 이중화: 메일 바인딩을 살린다. passsignal.com Email Routing 이 켜져 있어야 실제로 나간다.
+[[send_email]]
+name = "NOTIFY"
+destination_address = "hhhyunee3@naver.com"
+
+# 문의 보관(KV) — 외국어·과외·학원 사이트와 같은 이름공간. 키: YYYYMMDDhhmmss-passsignal.com-xxxxxx
+[[kv_namespaces]]
+binding = "INQUIRY"
+id = "577f9b3a7b6c46d18ae828e15d8d6032"
 
 # (선택) 화면 표기/연동값 중 "민감하지 않은" 값만 여기에 둡니다.
 # [vars]
 # BRAND_NAME   = "합격시그널"
-# NOTIFY_FROM  = "noreply@hapgyeoksignal.com"
+# NOTIFY_FROM  = "noreply@passsignal.com"  (안 넣으면 이 주소. 예전 값 hapgyeoksignal.com 은 계정에 없는 도메인이라 쓰면 안 됨)
 
 # 민감한 값(받는 메일주소·시트 웹훅 URL)은 repo에 넣지 말고
 # 대시보드 Settings → Variables and Secrets, 또는 아래 명령으로 등록하세요:
