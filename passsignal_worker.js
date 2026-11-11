@@ -1,3 +1,4 @@
+import { CAPTURE_JS, inquirySource, tgPayload, tgPreview } from './inqsrc.js'; // 신청 페이지·처음 들어온 페이지·유입 (2026-11-05)
 import { guardResponse } from './telguard.js'; // 전화번호: 푸터에서 삭제, PC 너비에서 숨김 (2026-10-10)
 // 합격시그널 — 대치동 입시컨설팅 · Cloudflare Worker
 // 메인페이지(/) + 프로그램 상세페이지(/program/{slug}) 동적 생성, 상담 신청(/api/inquiry) 처리.
@@ -787,6 +788,7 @@ document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 if(location.pathname!=='/'){document.querySelectorAll('a[href^="/#contact"]').forEach(function(a){a.setAttribute('href','/?from='+encodeURIComponent(location.pathname)+'#contact');});}
 var fromPage='';try{fromPage=new URLSearchParams(location.search).get('from')||'';}catch(e){}
 if(!fromPage&&document.referrer){try{var ru=new URL(document.referrer);if(ru.host===location.host&&ru.pathname!=='/')fromPage=ru.pathname;}catch(e){}}
+var ss=function(k){try{return sessionStorage.getItem(k)||''}catch(e){return ''}};
 var f=document.getElementById('inquiryForm');
 if(f){f.addEventListener('submit',function(e){e.preventDefault();
 var m=document.getElementById('formMsg');
@@ -799,7 +801,7 @@ grade:g('iq_grade').value,gpa:g('iq_gpa').value,region:g('iq_region').value,scho
 parentName:g('iq_parent').value.trim(),parentPhone:g('iq_phone').value.trim(),
 program:g('iq_program').value,target:g('iq_target').value.trim(),
 inquiry1:g('iq_inquiry').value.trim(),status:gv('status'),consent:g('iq_consent').checked,
-page:fromPage||location.pathname};
+page:fromPage||location.pathname,ctx_p:fromPage||(location.pathname+location.search),ctx_f:ss('cn_f'),ctx_r:ss('cn_r')};
 if(!payload.studentName){err('학생 이름을 입력해 주세요.');return;}
 if(!payload.gender){err('학생 성별을 선택해 주세요.');return;}
 if(!payload.grade||!payload.gpa||!payload.region||!payload.school){err('학년·내신·지역·학교명을 모두 입력해 주세요.');return;}
@@ -872,7 +874,7 @@ ${ldTags}
 ${header()}
 ${body}
 ${footer()}
-${PAGE_SCRIPT}
+${CAPTURE_JS}${PAGE_SCRIPT}
 </body></html>`;
 }
 
@@ -1317,6 +1319,7 @@ async function handleInquiry(request, env) {
     inquiry1: S(data.inquiry1), status: S(data.status),
     page: (() => { const pth = S(data.page).replace(/[^\w\-\/]/g, "").slice(0, 80) || "/"; return pageLabel(pth) + " · " + pth; })(),
     consent: !!data.consent,
+    ...inquirySource(data, SITE.url),
     at: new Date().toISOString(), atDisplay,
   };
 
@@ -1353,17 +1356,22 @@ async function sendMail(env, record) {
 
 // 텔레그램: 첫 줄 [사이트 이름]. 5초 넘으면 끊는다.
 async function sendTelegram(env, r) {
+  // 이모티콘 없이 항목 이름으로 구분(2026-11-05). TG_PREVIEW(로컬 --var)면 보낼 내용을 로그로 남긴다.
+  const lines = ["[" + r.site + "] 새 상담 신청", "",
+    "학생: " + r.studentName + (r.gender ? " (" + r.gender + ")" : ""),
+    "학부모: " + (r.parentName || "-"), "연락처: " + r.parentPhone,
+    "학년·학교: " + ([r.grade, r.school, r.region].filter(Boolean).join(" · ") || "-"),
+    "내신: " + (r.gpa || "-"), "목표: " + (r.target || "-"),
+    "프로그램: " + (r.program || "-"), "진행 상태: " + (r.status || "-"),
+    "내용: " + (r.inquiry1 || "-"),
+    "신청 페이지: " + (r.pageUrl || "-"), "처음 들어온 페이지: " + (r.firstUrl || "-"), "유입: " + (r.source || "-"),
+    "접수: " + r.atDisplay];
+  if (env && env.TG_PREVIEW) console.log("[텔레그램 미리보기]\n" + tgPreview(lines.join("\n")));
   const token = env && env.TELEGRAM_BOT_TOKEN, chat = env && env.TELEGRAM_CHAT_ID;
   if (!token || !chat) return false;
-  const lines = ["[" + r.site + "] 새 상담 신청", "",
-    "학생: " + r.studentName + (r.gender ? " (" + r.gender + ")" : "") + " · " + [r.grade, r.school, r.region].filter(Boolean).join(" · "),
-    "내신: " + (r.gpa || "-") + " · 목표: " + (r.target || "-"),
-    "학부모: " + (r.parentName || "-") + " · " + r.parentPhone,
-    "프로그램: " + (r.program || "-") + " · 진행 상태: " + (r.status || "-"),
-    "내용: " + (r.inquiry1 || "-"), "유입: " + r.page, r.atDisplay];
   const res = await fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
     method: "POST", headers: { "content-type": "application/json" }, signal: AbortSignal.timeout(5000),
-    body: JSON.stringify({ chat_id: chat, text: lines.join("\n"), disable_web_page_preview: true }),
+    body: JSON.stringify(tgPayload(chat, lines.join("\n"))),
   });
   if (!res.ok) throw new Error("텔레그램 응답 " + res.status);
   return true;
@@ -1402,7 +1410,9 @@ function renderEmailHtml(r) {
   let rows = row("학생 이름", r.studentName) + row("성별", r.gender) + row("학년", r.grade) + row("내신 성적대", r.gpa) + row("지역", r.region) + row("학교명", r.school);
   rows += row("학부모 이름", r.parentName);
   rows += '<tr><td style="' + cell + '">학부모 연락처</td><td style="padding:13px 0;border-bottom:1px solid ' + line + ';"><a href="tel:' + tel + '" style="color:' + gold + ';font-size:17px;font-weight:800;text-decoration:none;">' + escapeHtml(r.parentPhone) + '</a></td></tr>';
-  rows += row("관심 프로그램", r.program) + row("목표 대학·학과", r.target) + row("진행 상태", r.status) + row("유입 페이지", r.page);
+  rows += row("관심 프로그램", r.program) + row("목표 대학·학과", r.target) + row("진행 상태", r.status) + row("유입", r.source || "-");
+  const link = (k, u) => '<tr><td style="' + cell + '">' + k + '</td><td style="padding:13px 0;font-size:13px;border-bottom:1px solid ' + line + ';">' + (u ? '<a href="' + escapeHtml(u) + '" style="color:#2563EB;word-break:break-all;">' + escapeHtml(decodeURI(u)) + '</a>' : '-') + '</td></tr>';
+  rows += link("신청 페이지", r.pageUrl) + link("처음 들어온 페이지", r.firstUrl);
   rows += '<tr><td style="' + cell + '">문의 내용</td><td style="padding:13px 0;font-size:14px;line-height:1.6;color:' + ink + ';">' + (r.inquiry1 ? escapeHtml(r.inquiry1).replace(/\n/g, "<br>") : "-") + '</td></tr>';
   return '<!doctype html><html><body style="margin:0;padding:24px 12px;background:#F3F2EE;font-family:-apple-system,BlinkMacSystemFont,Apple SD Gothic Neo,Malgun Gothic,sans-serif;">' +
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 10px 30px rgba(11,22,34,.10);">' +
