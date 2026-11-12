@@ -1297,7 +1297,7 @@ function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json; charset=utf-8" } });
 }
 
-async function handleInquiry(request, env) {
+async function handleInquiry(request, env, ctx) {
   let data;
   try { data = await request.json(); } catch { return json({ ok: false, error: "요청 형식이 올바르지 않습니다." }, 400); }
 
@@ -1335,10 +1335,14 @@ async function handleInquiry(request, env) {
     return json({ ok: false, error: "접수 중 문제가 생겼습니다. 번거로우시겠지만 " + SITE.tel + " 으로 전화나 문자 주시면 바로 상담 도와드리겠습니다.", tel: SITE.tel }, 500);
   }
 
-  const results = await Promise.allSettled([sendMail(env, record), sendTelegram(env, record), saveSheet(env, record)]);
-  const st = (x) => (x.status === "fulfilled" ? (x.value ? "성공" : "건너뜀") : "실패");
-  console.log("새 상담 신청 · 메일 " + st(results[0]) + " · 텔레그램 " + st(results[1]) + " · 시트 " + st(results[2]));
-  results.forEach((x, i) => { if (x.status === "rejected") console.log(["메일", "텔레그램", "시트"][i] + " 오류:", x.reason && x.reason.message ? x.reason.message : x.reason); });
+  // 2026-11-12: KV 성공 = 접수 완료를 바로 돌려주고, 알림은 응답 뒤 ctx.waitUntil 로 이어서 보낸다(손님이 창을 닫아도 끊기지 않음).
+  const job = (async () => {
+    const results = await Promise.allSettled([sendMail(env, record), sendTelegram(env, record), saveSheet(env, record)]);
+    const st = (x) => (x.status === "fulfilled" ? (x.value ? "성공" : "건너뜀") : "실패");
+    console.log("새 상담 신청 · 메일 " + st(results[0]) + " · 텔레그램 " + st(results[1]) + " · 시트 " + st(results[2]));
+    results.forEach((x, i) => { if (x.status === "rejected") console.log(["메일", "텔레그램", "시트"][i] + " 오류:", x.reason && x.reason.message ? x.reason.message : x.reason); });
+  })();
+  if (ctx && typeof ctx.waitUntil === "function") ctx.waitUntil(job); else await job;
   return json({ ok: true });
 }
 
@@ -1468,14 +1472,14 @@ ${items.map((i) => `<item><title>${xe(i.t)}</title><link>${i.u}</link><descripti
 const htmlResponse = (s, status = 200) => new Response(s, { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-cache" } });
 
 const __APP = {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, "") || "/";
     RUNTIME.naverVerify = (env && env.NAVER_VERIFY) || "";
     RUNTIME.googleVerify = (env && env.GOOGLE_VERIFY) || "";
     RUNTIME.daumPin = (env && env.DAUM_PIN) || "";
 
-    if (request.method === "POST" && path === "/api/inquiry") return handleInquiry(request, env);
+    if (request.method === "POST" && path === "/api/inquiry") return handleInquiry(request, env, ctx);
     if (path === "/" || path === "/index.html") return htmlResponse(renderMain());
 
     if (path === "/info") return htmlResponse(renderInfoList());
