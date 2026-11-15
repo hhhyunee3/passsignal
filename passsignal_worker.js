@@ -577,7 +577,7 @@ form.inq h3{font-size:1.4rem;color:var(--paper);margin-bottom:6px}
 form.inq .fdesc{color:var(--muted-light);font-size:.9rem;margin-bottom:24px}
 .field{margin-bottom:17px}
 .field label{display:block;font-size:.8rem;font-weight:600;letter-spacing:.03em;margin-bottom:8px;color:var(--muted-light)}
-.field input,.field select,.field textarea{width:100%;background:rgba(251,250,247,.05);border:1px solid var(--line-light);color:var(--paper);padding:13px 15px;font-family:var(--sans);font-size:.95rem;border-radius:2px;transition:border-color .25s,background .25s}
+.field input,.field select,.field textarea{width:100%;background:rgba(251,250,247,.05);border:1px solid var(--line-light);color:var(--paper);padding:13px 15px;font-family:var(--sans);font-size:1rem;border-radius:2px;transition:border-color .25s,background .25s}
 .field input::placeholder,.field textarea::placeholder{color:rgba(251,250,247,.4)}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--signal);background:rgba(199,154,75,.06)}
 .field select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C79A4B' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:38px}
@@ -726,6 +726,14 @@ footer{background:var(--ink);color:var(--muted-light);padding:62px 0 38px;border
   form.inq{padding:32px 22px}
   .cstep{grid-template-columns:1fr;gap:10px}
   .dbody{padding:64px 0}
+  /* 2026-11-15 휴대폰: 누르는 영역 44px, 3칸 표는 화면 안에, 4칸 이상은 옆으로 밀 수 있다는 표시 */
+  .hamburger{padding:10px;min-width:44px;min-height:44px;align-items:center;justify-content:center}
+  .foot-col a{display:flex;align-items:center;min-height:44px;margin-bottom:0}
+  .crumb a{display:inline-block;padding:12px 0}
+  .atable{min-width:0;font-size:.86rem}
+  .atable th,.atable td{padding:9px 8px}
+  .tscroll.wide .atable{min-width:560px}
+  .tscroll.wide::before{content:"표를 옆으로 밀어서 보세요 →";display:block;position:sticky;left:0;font-size:.8rem;color:var(--muted);margin-bottom:6px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -737,7 +745,7 @@ footer{background:var(--ink);color:var(--muted-light);padding:62px 0 38px;border
 const HEAD_FONTS = `
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700&display=swap" rel="stylesheet">`;
 
 const FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%23C79A4B'/%3E%3Ccircle cx='20' cy='27' r='2.9' fill='%230B1622'/%3E%3Cpath d='M14 24.2Q20 18 26 24.2' stroke='%230B1622' stroke-width='2.4' stroke-linecap='round' fill='none'/%3E%3Cpath d='M10.5 20.4Q20 10.5 29.5 20.4' stroke='%230B1622' stroke-width='2.4' stroke-linecap='round' fill='none' stroke-opacity='.55'/%3E%3C/svg%3E";
@@ -1105,7 +1113,7 @@ function notFound() {
 function atable(head, rows) {
   const th = head.map((h) => `<th>${h}</th>`).join("");
   const trs = rows.map((r) => "<tr>" + r.map((c, i) => (i === 0 ? `<th scope="row">${c}</th>` : `<td>${c}</td>`)).join("") + "</tr>").join("");
-  return `<div class="tscroll"><table class="atable"><thead><tr>${th}</tr></thead><tbody>${trs}</tbody></table></div>`;
+  return `<div class="tscroll${head.length > 3 ? " wide" : ""}"><table class="atable"><thead><tr>${th}</tr></thead><tbody>${trs}</tbody></table></div>`;
 }
 function checks(items) {
   return `<ul class="checks">` + items.map((t) => `<li>${t}</li>`).join("") + `</ul>`;
